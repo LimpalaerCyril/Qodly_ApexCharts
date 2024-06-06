@@ -1,0 +1,80 @@
+import { EComponentKind, T4DComponentConfig } from '@ws-ui/webform-editor';
+import { Settings } from '@ws-ui/webform-editor';
+import { FaChartLine } from "react-icons/fa";
+
+import LineSettings, { BasicSettings } from './Line.settings';
+
+export default {
+	craft: {
+		displayName: 'Line',
+		kind: EComponentKind.BASIC,
+		props: {
+			name: '',
+			classNames: [],
+			events: [],
+		},
+		related: {
+			settings: Settings(LineSettings, BasicSettings),
+		},
+	},
+	info: {
+		displayName: 'Line',
+		exposed: true,
+		icon: FaChartLine,
+		events: [
+			{
+				label: 'On Click',
+				value: 'onclick',
+			},
+			{
+				label: 'On Blur',
+				value: 'onblur',
+			},
+			{
+				label: 'On Focus',
+				value: 'onfocus',
+			},
+			{
+				label: 'On MouseEnter',
+				value: 'onmouseenter',
+			},
+			{
+				label: 'On MouseLeave',
+				value: 'onmouseleave',
+			},
+			{
+				label: 'On KeyDown',
+				value: 'onkeydown',
+			},
+			{
+				label: 'On KeyUp',
+				value: 'onkeyup',
+			},
+		],
+		datasources: {
+			accept: ['object'],
+		},
+	},
+	defaultProps: {
+		name: 'Qodly Line Chart name',
+		legendPosition: 'top',
+		titlePosition: 'center',
+		chartType: 'line',
+		exportable: true,
+		zoomable: true,
+		strokeCurve: 'straight',
+		style: {
+			width: '500px',
+		},
+	},
+} as T4DComponentConfig<ILineProps>;
+
+export interface ILineProps extends webforms.ComponentProps {
+	name?: string;
+	chartType?: 'line' | 'area' | 'bar';
+	exportable?: boolean;
+	zoomable?: boolean;
+	strokeCurve?: 'straight' | 'smooth' | 'monotoneCubic' | 'stepline';
+	legendPosition?: 'top' | 'bottom' | 'left' | 'right' | 'hidden';
+	titlePosition?: 'center' | 'left' | 'right';
+}
