@@ -6,7 +6,7 @@ import { IAreaProps } from './Area.config';
 import ReactApexChart from 'react-apexcharts';
 import { ApexOptions } from 'apexcharts';
 
-const Area: FC<IAreaProps> = ({ displayLabels, strokeCurve, chartType, exportable, zoomable, titlePosition, legendPosition, name, style, className, classNames = [] }) => {
+const Area: FC<IAreaProps> = ({ displayLabels, xAxisTitle, yAxisTitle, strokeCurve, chartType, exportable, zoomable, titlePosition, legendPosition, name, style, className, classNames = [] }) => {
   const {
     connectors: { connect },
   } = useEnhancedNode();
@@ -14,7 +14,7 @@ const Area: FC<IAreaProps> = ({ displayLabels, strokeCurve, chartType, exportabl
   const showLegend = legendPosition !== 'hidden';
   const legendPos: 'top' | 'bottom' | 'left' | 'right' = showLegend ? legendPosition! : 'top';
 
-  const options: ApexOptions = useMemo(
+  const options: ApexOptions = useMemo( // Prevents unnecessary re-renders if no editor changes
     () => ({
       chart: {
         type: chartType,
@@ -49,9 +49,17 @@ const Area: FC<IAreaProps> = ({ displayLabels, strokeCurve, chartType, exportabl
       },
       xaxis: {
         categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep'],
+        title: {
+          text: xAxisTitle
+        }
+      },
+      yaxis: {
+        title: {
+          text: yAxisTitle
+        }
       }
     }),
-    [legendPos, name, showLegend, titlePosition, zoomable, exportable, strokeCurve, chartType, displayLabels]
+    [legendPos, name, showLegend, titlePosition, zoomable, exportable, strokeCurve, chartType, displayLabels, xAxisTitle, yAxisTitle]
   )
 
   const series = useMemo( // Prevents unnecessary re-renders if no editor changes
@@ -65,7 +73,7 @@ const Area: FC<IAreaProps> = ({ displayLabels, strokeCurve, chartType, exportabl
         data: Array.from({ length: 9 }, () => Math.floor(Math.random() * 150))
       }
     ],
-    [legendPos, name, showLegend, titlePosition, zoomable, exportable]
+    []
   )
 
   const chart = {

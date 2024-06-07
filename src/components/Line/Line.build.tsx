@@ -6,7 +6,7 @@ import { IAnnotation, ILineProps } from './Line.config';
 import ReactApexChart from 'react-apexcharts';
 import { ApexOptions } from 'apexcharts';
 
-const Line: FC<ILineProps> = ({ displayLabels, annotations, strokeCurve, chartType, exportable, zoomable, titlePosition, legendPosition, name, style, className, classNames = [] }) => {
+const Line: FC<ILineProps> = ({ annotations, displayLabels, xAxisTitle, yAxisTitle, strokeCurve, chartType, exportable, zoomable, titlePosition, legendPosition, name, style, className, classNames = [] }) => {
 	const {
 		connectors: { connect },
 	} = useEnhancedNode();
@@ -107,9 +107,17 @@ const Line: FC<ILineProps> = ({ displayLabels, annotations, strokeCurve, chartTy
 			},
 			xaxis: {
 				categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep'],
+				title: {
+					text: xAxisTitle
+				}
+			},
+			yaxis: {
+				title: {
+					text: yAxisTitle
+				}
 			}
 		}),
-		[legendPos, name, showLegend, titlePosition, zoomable, exportable, strokeCurve, chartType, annotations, displayLabels]
+		[legendPos, name, showLegend, titlePosition, zoomable, exportable, strokeCurve, chartType, xAxisTitle, yAxisTitle, displayLabels, annotations]
 	)
 
 	const series = useMemo( // Prevents unnecessary re-renders if no editor changes
@@ -123,7 +131,7 @@ const Line: FC<ILineProps> = ({ displayLabels, annotations, strokeCurve, chartTy
 				data: Array.from({ length: 9 }, () => Math.floor(Math.random() * 150))
 			}
 		],
-		[legendPos, name, showLegend, titlePosition, zoomable, exportable]
+		[]
 	)
 
 	const chart = {
