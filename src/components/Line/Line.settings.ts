@@ -135,7 +135,7 @@ const commonSettings: TSetting[] = [
 				type: ESetting.COLOR_PICKER,
 			}
 		],
-	},
+	}
 ];
 
 const Settings: TSetting[] = [

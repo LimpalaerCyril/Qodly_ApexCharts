@@ -77,7 +77,7 @@ const commonSettings: TSetting[] = [
     key: 'displayLabels',
     label: 'Display labels',
     type: ESetting.CHECKBOX,
-  },
+  }
 ];
 
 const Settings: TSetting[] = [

@@ -73,10 +73,21 @@ export default {
 export interface IAreaProps extends webforms.ComponentProps {
   name?: string;
   chartType?: 'area' | 'bar' | 'line';
+  annotations?: IAnnotation[];
   exportable?: boolean;
   zoomable?: boolean;
   displayLabels?: boolean;
   strokeCurve?: 'straight' | 'smooth' | 'monotoneCubic' | 'stepline';
   legendPosition?: 'top' | 'bottom' | 'left' | 'right' | 'hidden';
   titlePosition?: 'center' | 'left' | 'right';
+}
+
+export interface IAnnotation {
+  text: string;
+  axis: 'x' | 'y' | 'point';
+  coordType: 'string' | 'number' | 'datetime';
+  coordFrom: string;
+  coordTo: string;
+  backgroundColor: string;
+  borderColor: string;
 }

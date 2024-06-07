@@ -50,10 +50,9 @@ const Line: FC<ILineProps> = ({ displayLabels, annotations, strokeCurve, chartTy
 				x: applyCoordType(annotation.coordType, annotation.coordFrom),
 				y: parseFloat(annotation.coordTo),
 				marker: {
-					size: 8,
+					size: 4,
 					fillColor: annotation.backgroundColor,
-					strokeColor: annotation.borderColor,
-					radius: 2
+					strokeColor: annotation.borderColor
 				},
 				label: {
 					text: annotation.text,
