@@ -6,7 +6,7 @@ import { ILineProps } from './Line.config';
 import ReactApexChart from 'react-apexcharts';
 import { ApexOptions } from 'apexcharts';
 
-const Line: FC<ILineProps> = ({ strokeCurve, chartType, exportable, zoomable, titlePosition, legendPosition, name, style, className, classNames = [] }) => {
+const Line: FC<ILineProps> = ({ xAxisTitle, yAxisTitle, strokeCurve, chartType, exportable, zoomable, titlePosition, legendPosition, name, style, className, classNames = [] }) => {
 	const { connect } = useRenderer();
 	const [chartData, setChartData] = useState<any>(null);
 	const {
@@ -61,6 +61,14 @@ const Line: FC<ILineProps> = ({ strokeCurve, chartType, exportable, zoomable, ti
 				},
 				xaxis: {
 					categories: datas.options.xaxis?.categories,
+					title: {
+						text: datas.options.xaxis?.title?.text ?? xAxisTitle
+					}
+				},
+				yaxis: {
+					title: {
+						text: datas.options.yaxis?.title?.text ?? yAxisTitle
+					}
 				}
 			};
 			var series: any[] = datas.series
