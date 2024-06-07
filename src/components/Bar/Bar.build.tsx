@@ -6,7 +6,7 @@ import { IBarProps } from './Bar.config';
 import ReactApexChart from 'react-apexcharts';
 import { ApexOptions } from 'apexcharts';
 
-const Bar: FC<IBarProps> = ({ strokeCurve, chartType, exportable, zoomable, titlePosition, legendPosition, name, style, className, classNames = [] }) => {
+const Bar: FC<IBarProps> = ({ xAxisTitle, yAxisTitle, strokeCurve, chartType, exportable, zoomable, titlePosition, legendPosition, name, style, className, classNames = [] }) => {
   const {
     connectors: { connect },
   } = useEnhancedNode();
@@ -49,9 +49,17 @@ const Bar: FC<IBarProps> = ({ strokeCurve, chartType, exportable, zoomable, titl
       },
       xaxis: {
         categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep'],
+        title: {
+          text: xAxisTitle
+        }
+      },
+      yaxis: {
+        title: {
+          text: yAxisTitle
+        }
       }
     }),
-    [legendPos, name, showLegend, titlePosition, zoomable, exportable, strokeCurve, chartType]
+    [legendPos, name, showLegend, titlePosition, zoomable, exportable, strokeCurve, chartType, xAxisTitle, yAxisTitle]
   )
 
   const series = useMemo( // Prevents unnecessary re-renders if no editor changes
@@ -65,7 +73,7 @@ const Bar: FC<IBarProps> = ({ strokeCurve, chartType, exportable, zoomable, titl
         data: Array.from({ length: 9 }, () => Math.floor(Math.random() * 150))
       }
     ],
-    [legendPos, name, showLegend, titlePosition, zoomable, exportable]
+    []
   )
 
   const chart = {

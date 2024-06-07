@@ -64,6 +64,16 @@ const commonSettings: TSetting[] = [
     ],
   },
   {
+    key: 'xAxisTitle',
+    label: 'X Axis Title',
+    type: ESetting.TEXT_FIELD,
+  },
+  {
+    key: 'yAxisTitle',
+    label: 'Y Axis Title',
+    type: ESetting.TEXT_FIELD,
+  },
+  {
     key: 'zoomable',
     label: 'Zoomable',
     type: ESetting.CHECKBOX,

@@ -77,4 +77,6 @@ export interface ILineProps extends webforms.ComponentProps {
 	strokeCurve?: 'straight' | 'smooth' | 'monotoneCubic' | 'stepline';
 	legendPosition?: 'top' | 'bottom' | 'left' | 'right' | 'hidden';
 	titlePosition?: 'center' | 'left' | 'right';
+	xAxisTitle?: string;
+	yAxisTitle?: string;
 }

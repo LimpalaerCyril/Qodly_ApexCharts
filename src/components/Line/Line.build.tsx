@@ -6,7 +6,7 @@ import { ILineProps } from './Line.config';
 import ReactApexChart from 'react-apexcharts';
 import { ApexOptions } from 'apexcharts';
 
-const Line: FC<ILineProps> = ({ strokeCurve, chartType, exportable, zoomable, titlePosition, legendPosition, name, style, className, classNames = [] }) => {
+const Line: FC<ILineProps> = ({ xAxisTitle, yAxisTitle, strokeCurve, chartType, exportable, zoomable, titlePosition, legendPosition, name, style, className, classNames = [] }) => {
 	const {
 		connectors: { connect },
 	} = useEnhancedNode();
@@ -49,9 +49,17 @@ const Line: FC<ILineProps> = ({ strokeCurve, chartType, exportable, zoomable, ti
 			},
 			xaxis: {
 				categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep'],
+				title: {
+					text: xAxisTitle
+				}
+			},
+			yaxis: {
+				title: {
+					text: yAxisTitle
+				}
 			}
 		}),
-		[legendPos, name, showLegend, titlePosition, zoomable, exportable, strokeCurve, chartType]
+		[legendPos, name, showLegend, titlePosition, zoomable, exportable, strokeCurve, chartType, xAxisTitle, yAxisTitle]
 	)
 
 	const series = useMemo( // Prevents unnecessary re-renders if no editor changes
@@ -65,7 +73,7 @@ const Line: FC<ILineProps> = ({ strokeCurve, chartType, exportable, zoomable, ti
 				data: Array.from({ length: 9 }, () => Math.floor(Math.random() * 150))
 			}
 		],
-		[legendPos, name, showLegend, titlePosition, zoomable, exportable]
+		[]
 	)
 
 	const chart = {
