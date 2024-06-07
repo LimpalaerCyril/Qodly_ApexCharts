@@ -18,7 +18,12 @@ const Pie: FC<IPieProps> = ({ chartType, gradient, titlePosition, legendPosition
 
 		const listener = async () => {
 			const v = await ds.getValue<any>();
-			const datas = JSON.parse(JSON.stringify(v));
+
+			var datas;
+			if (typeof v === 'string')
+				datas = JSON.parse(v);
+			else
+				datas = JSON.parse(JSON.stringify(v));
 
 			const gradientType = gradient ? 'gradient' : 'solid';
 			const showLegend = legendPosition !== 'hidden';

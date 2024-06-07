@@ -18,7 +18,11 @@ const Bar: FC<IBarProps> = ({ strokeCurve, chartType, exportable, zoomable, titl
 
     const listener = async () => {
       const v = await ds.getValue<any>();
-      const datas = JSON.parse(JSON.stringify(v));
+      var datas;
+      if (typeof v === 'string')
+        datas = JSON.parse(v);
+      else
+        datas = JSON.parse(JSON.stringify(v));
 
       const showLegend = legendPosition !== 'hidden';
       const legendPos: 'top' | 'bottom' | 'left' | 'right' = showLegend ? legendPosition! : 'top';

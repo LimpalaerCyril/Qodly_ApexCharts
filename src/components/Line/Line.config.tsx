@@ -52,7 +52,7 @@ export default {
 			},
 		],
 		datasources: {
-			accept: ['object'],
+			accept: ['string', 'object'],
 		},
 	},
 	defaultProps: {
