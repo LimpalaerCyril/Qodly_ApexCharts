@@ -6,7 +6,7 @@ import { IBarProps } from './Bar.config';
 import ReactApexChart from 'react-apexcharts';
 import { ApexOptions } from 'apexcharts';
 
-const Bar: FC<IBarProps> = ({ xAxisTitle, yAxisTitle, strokeCurve, chartType, exportable, zoomable, titlePosition, legendPosition, name, style, className, classNames = [] }) => {
+const Bar: FC<IBarProps> = ({ displayLabels, xAxisTitle, yAxisTitle, strokeCurve, chartType, exportable, zoomable, titlePosition, legendPosition, name, style, className, classNames = [] }) => {
   const {
     connectors: { connect },
   } = useEnhancedNode();
@@ -28,7 +28,7 @@ const Bar: FC<IBarProps> = ({ xAxisTitle, yAxisTitle, strokeCurve, chartType, ex
         }
       },
       dataLabels: {
-        enabled: true
+        enabled: displayLabels
       },
       legend: {
         show: showLegend,
@@ -59,7 +59,7 @@ const Bar: FC<IBarProps> = ({ xAxisTitle, yAxisTitle, strokeCurve, chartType, ex
         }
       }
     }),
-    [legendPos, name, showLegend, titlePosition, zoomable, exportable, strokeCurve, chartType, xAxisTitle, yAxisTitle]
+    [legendPos, name, showLegend, titlePosition, zoomable, exportable, strokeCurve, chartType, xAxisTitle, yAxisTitle, displayLabels]
   )
 
   const series = useMemo( // Prevents unnecessary re-renders if no editor changes

@@ -62,6 +62,7 @@ export default {
     chartType: 'area',
     exportable: true,
     zoomable: true,
+    displayLabels: true,
     strokeCurve: 'straight',
     style: {
       width: '500px',
@@ -72,11 +73,23 @@ export default {
 export interface IAreaProps extends webforms.ComponentProps {
   name?: string;
   chartType?: 'area' | 'bar' | 'line';
+  annotations?: IAnnotation[];
   exportable?: boolean;
   zoomable?: boolean;
+  displayLabels?: boolean;
   strokeCurve?: 'straight' | 'smooth' | 'monotoneCubic' | 'stepline';
   legendPosition?: 'top' | 'bottom' | 'left' | 'right' | 'hidden';
   titlePosition?: 'center' | 'left' | 'right';
   xAxisTitle?: string;
   yAxisTitle?: string;
+}
+
+export interface IAnnotation {
+  text: string;
+  axis: 'x' | 'y' | 'point';
+  coordType: 'string' | 'number' | 'datetime';
+  coordFrom: string;
+  coordTo: string;
+  backgroundColor: string;
+  borderColor: string;
 }

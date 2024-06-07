@@ -7,21 +7,12 @@
         15
     ],
     "options": {
-        "chart": {
-            "type": "donut"
-        },
-        "responsive": [
-            {
-                "breakpoint": 480,
-                "options": {
-                    "chart": {
-                        "width": 200
-                    },
-                    "legend": {
-                        "position": "bottom"
-                    }
-                }
-            }
+        "labels": [
+            "Series A",
+            "Series B",
+            "Series C",
+            "Series D",
+            "Series E"
         ]
     }
 }

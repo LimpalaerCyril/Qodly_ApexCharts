@@ -62,6 +62,7 @@ export default {
 		chartType: 'bar',
 		exportable: true,
 		zoomable: true,
+		displayLabels: true,
 		strokeCurve: 'straight',
 		style: {
 			width: '500px',
@@ -74,6 +75,7 @@ export interface IBarProps extends webforms.ComponentProps {
 	chartType?: 'bar' | 'line' | 'area';
 	exportable?: boolean;
 	zoomable?: boolean;
+	displayLabels?: boolean;
 	strokeCurve?: 'straight' | 'smooth' | 'monotoneCubic' | 'stepline';
 	legendPosition?: 'top' | 'bottom' | 'left' | 'right' | 'hidden';
 	titlePosition?: 'center' | 'left' | 'right';
