@@ -61,6 +61,7 @@ export default {
     titlePosition: 'center',
     chartType: 'donut',
     gradient: true,
+    displayLabels: true,
     style: {
       width: '500px',
     },
@@ -71,6 +72,7 @@ export interface IDonutProps extends webforms.ComponentProps {
   name?: string;
   chartType?: 'donut' | 'pie';
   gradient?: boolean;
+  displayLabels?: boolean;
   legendPosition?: 'top' | 'bottom' | 'left' | 'right' | 'hidden';
   titlePosition?: 'center' | 'left' | 'right';
 }

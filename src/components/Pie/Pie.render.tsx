@@ -6,7 +6,7 @@ import { IPieProps } from './Pie.config';
 import ReactApexChart from 'react-apexcharts';
 import { ApexOptions } from 'apexcharts';
 
-const Pie: FC<IPieProps> = ({ chartType, gradient, titlePosition, legendPosition, name, style, className, classNames = [] }) => {
+const Pie: FC<IPieProps> = ({ displayLabels, chartType, gradient, titlePosition, legendPosition, name, style, className, classNames = [] }) => {
 	const { connect } = useRenderer();
 	const [chartData, setChartData] = useState<any>(null);
 	const {
@@ -46,7 +46,7 @@ const Pie: FC<IPieProps> = ({ chartType, gradient, titlePosition, legendPosition
 				}],
 				labels: datas.options.labels ?? [],
 				dataLabels: {
-					enabled: true
+					enabled: datas.options.dataLabels?.enabled ?? displayLabels
 				},
 				fill: {
 					type: gradientType

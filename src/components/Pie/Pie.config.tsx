@@ -61,6 +61,7 @@ export default {
     titlePosition: 'center',
     chartType: 'pie',
     gradient: true,
+    displayLabels: true,
     style: {
       width: '500px',
     },
@@ -71,6 +72,7 @@ export interface IPieProps extends webforms.ComponentProps {
   name?: string;
   chartType?: 'pie' | 'donut';
   gradient?: boolean;
+  displayLabels?: boolean;
   legendPosition?: 'top' | 'bottom' | 'left' | 'right' | 'hidden';
   titlePosition?: 'center' | 'left' | 'right';
 }

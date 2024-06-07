@@ -62,6 +62,7 @@ export default {
 		chartType: 'line',
 		exportable: true,
 		zoomable: true,
+		displayLabels: true,
 		strokeCurve: 'straight',
 		style: {
 			width: '500px',
@@ -72,9 +73,21 @@ export default {
 export interface ILineProps extends webforms.ComponentProps {
 	name?: string;
 	chartType?: 'line' | 'area' | 'bar';
+	annotations?: IAnnotation[];
 	exportable?: boolean;
 	zoomable?: boolean;
+	displayLabels?: boolean;
 	strokeCurve?: 'straight' | 'smooth' | 'monotoneCubic' | 'stepline';
 	legendPosition?: 'top' | 'bottom' | 'left' | 'right' | 'hidden';
 	titlePosition?: 'center' | 'left' | 'right';
+}
+
+export interface IAnnotation {
+	text: string;
+	axis: 'x' | 'y' | 'point';
+	coordType: 'string' | 'number' | 'datetime';
+	coordFrom: string;
+	coordTo: string;
+	backgroundColor: string;
+	borderColor: string;
 }

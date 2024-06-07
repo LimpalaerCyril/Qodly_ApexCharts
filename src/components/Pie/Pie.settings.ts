@@ -54,6 +54,11 @@ const commonSettings: TSetting[] = [
     key: 'gradient',
     label: 'Gradient',
     type: ESetting.CHECKBOX,
+  },
+  {
+    key: 'displayLabels',
+    label: 'Display Labels',
+    type: ESetting.CHECKBOX
   }
 ];
 

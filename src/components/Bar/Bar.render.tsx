@@ -6,7 +6,7 @@ import { IBarProps } from './Bar.config';
 import ReactApexChart from 'react-apexcharts';
 import { ApexOptions } from 'apexcharts';
 
-const Bar: FC<IBarProps> = ({ strokeCurve, chartType, exportable, zoomable, titlePosition, legendPosition, name, style, className, classNames = [] }) => {
+const Bar: FC<IBarProps> = ({ displayLabels, strokeCurve, chartType, exportable, zoomable, titlePosition, legendPosition, name, style, className, classNames = [] }) => {
   const { connect } = useRenderer();
   const [chartData, setChartData] = useState<any>(null);
   const {
@@ -40,7 +40,7 @@ const Bar: FC<IBarProps> = ({ strokeCurve, chartType, exportable, zoomable, titl
           }
         },
         dataLabels: {
-          enabled: true
+          enabled: datas.options.dataLabels?.enabled ?? displayLabels
         },
         legend: {
           show: datas.options.legend?.show ?? showLegend,

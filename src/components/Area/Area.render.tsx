@@ -6,7 +6,7 @@ import { IAreaProps } from './Area.config';
 import { ApexOptions } from 'apexcharts';
 import ReactApexChart from 'react-apexcharts';
 
-const Area: FC<IAreaProps> = ({ strokeCurve, chartType, exportable, zoomable, titlePosition, legendPosition, name, style, className, classNames = [] }) => {
+const Area: FC<IAreaProps> = ({ displayLabels, strokeCurve, chartType, exportable, zoomable, titlePosition, legendPosition, name, style, className, classNames = [] }) => {
   const { connect } = useRenderer();
   const [chartData, setChartData] = useState<any>(null);
   const {
@@ -40,7 +40,7 @@ const Area: FC<IAreaProps> = ({ strokeCurve, chartType, exportable, zoomable, ti
           }
         },
         dataLabels: {
-          enabled: true
+          enabled: datas.options.dataLabels?.enabled ?? displayLabels
         },
         legend: {
           show: datas.options.legend?.show ?? showLegend,

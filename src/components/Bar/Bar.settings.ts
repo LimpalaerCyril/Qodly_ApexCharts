@@ -72,7 +72,12 @@ const commonSettings: TSetting[] = [
     key: 'exportable',
     label: 'Exportable',
     type: ESetting.CHECKBOX,
-  }
+  },
+  {
+    key: 'displayLabels',
+    label: 'Display labels',
+    type: ESetting.CHECKBOX,
+  },
 ];
 
 const Settings: TSetting[] = [

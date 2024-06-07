@@ -6,7 +6,7 @@ import { IDonutProps } from './Donut.config';
 import ReactApexChart from 'react-apexcharts';
 import { ApexOptions } from 'apexcharts';
 
-const Donut: FC<IDonutProps> = ({ chartType, gradient, titlePosition, legendPosition, name, style, className, classNames = [] }) => {
+const Donut: FC<IDonutProps> = ({ displayLabels, chartType, gradient, titlePosition, legendPosition, name, style, className, classNames = [] }) => {
   const { connect } = useRenderer();
   const [chartData, setChartData] = useState<any>(null);
   const {
@@ -44,7 +44,7 @@ const Donut: FC<IDonutProps> = ({ chartType, gradient, titlePosition, legendPosi
           }
         }],
         dataLabels: {
-          enabled: true
+          enabled: datas.options.dataLabels?.enabled ?? displayLabels
         },
         labels: datas.options.labels ?? [],
         fill: {

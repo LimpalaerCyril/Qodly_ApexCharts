@@ -6,7 +6,7 @@ import { IPieProps } from './Pie.config';
 import ReactApexChart from 'react-apexcharts';
 import { ApexOptions } from 'apexcharts';
 
-const Pie: FC<IPieProps> = ({ chartType, gradient, titlePosition, legendPosition, name, style, className, classNames = [] }) => {
+const Pie: FC<IPieProps> = ({ displayLabels, chartType, gradient, titlePosition, legendPosition, name, style, className, classNames = [] }) => {
 	const {
 		connectors: { connect },
 	} = useEnhancedNode();
@@ -32,7 +32,7 @@ const Pie: FC<IPieProps> = ({ chartType, gradient, titlePosition, legendPosition
 				}
 			}],
 			dataLabels: {
-				enabled: true
+				enabled: displayLabels,
 			},
 			labels: ["Comedy", "Action", "SciFi", "Drama", "Horror", "Romance", "Thriller", "Mystery", "Documentary"],
 			fill: {
@@ -47,12 +47,12 @@ const Pie: FC<IPieProps> = ({ chartType, gradient, titlePosition, legendPosition
 				align: titlePosition
 			}
 		}),
-		[legendPos, name, showLegend, titlePosition, chartType, gradientType]
+		[legendPos, name, showLegend, titlePosition, chartType, gradientType, displayLabels]
 	)
 
 	const series = useMemo( // Prevents unnecessary re-renders if no editor changes
 		() => Array.from({ length: 9 }, () => Math.floor(Math.random() * 150)),
-		[legendPos, name, showLegend, titlePosition]
+		[]
 	)
 
 	const chart = {
