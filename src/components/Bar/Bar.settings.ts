@@ -12,7 +12,7 @@ import {
 const commonSettings: TSetting[] = [
   {
     key: 'name',
-    label: 'Name',
+    label: 'Title',
     type: ESetting.TEXT_FIELD,
     defaultValue: 'Qodly chart summary',
   },
@@ -52,18 +52,6 @@ const commonSettings: TSetting[] = [
     ],
   },
   {
-    key: 'strokeCurve',
-    label: 'Stroke Curve',
-    type: ESetting.SELECT,
-    defaultValue: 'straight',
-    options: [
-      { value: 'straight', label: 'Straight' },
-      { value: 'smooth', label: 'Smooth' },
-      { value: 'monotoneCubic', label: 'Monotone Cubic' },
-      { value: 'stepline', label: 'Stepline' },
-    ],
-  },
-  {
     key: 'xAxisTitle',
     label: 'X Axis Title',
     type: ESetting.TEXT_FIELD,
@@ -72,11 +60,6 @@ const commonSettings: TSetting[] = [
     key: 'yAxisTitle',
     label: 'Y Axis Title',
     type: ESetting.TEXT_FIELD,
-  },
-  {
-    key: 'zoomable',
-    label: 'Zoomable',
-    type: ESetting.CHECKBOX,
   },
   {
     key: 'exportable',
