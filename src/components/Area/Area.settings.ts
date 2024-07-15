@@ -90,6 +90,19 @@ const commonSettings: TSetting[] = [
   },
   {
     type: ESetting.DATAGRID,
+    key: 'chartColors',
+    name: 'chartColors',
+    label: 'Chart colors',
+    data: [
+      {
+        key: 'color',
+        label: 'Color',
+        type: ESetting.COLOR_PICKER,
+      }
+    ],
+  },
+  {
+    type: ESetting.DATAGRID,
     key: 'annotations',
     name: 'text',
     label: 'Annotations',

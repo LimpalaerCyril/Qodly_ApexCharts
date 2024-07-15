@@ -6,7 +6,7 @@ import { IAreaProps } from './Area.config';
 import { ApexOptions } from 'apexcharts';
 import ReactApexChart from 'react-apexcharts';
 
-const Area: FC<IAreaProps> = ({ displayLabels, xAxisTitle, yAxisTitle, strokeCurve, chartType, exportable, zoomable, titlePosition, legendPosition, name, style, className, classNames = [] }) => {
+const Area: FC<IAreaProps> = ({ displayLabels, xAxisTitle, chartColors, yAxisTitle, strokeCurve, chartType, exportable, zoomable, titlePosition, legendPosition, name, style, className, classNames = [] }) => {
   const { connect } = useRenderer();
   const [chartData, setChartData] = useState<any>(null);
   const {
@@ -26,6 +26,8 @@ const Area: FC<IAreaProps> = ({ displayLabels, xAxisTitle, yAxisTitle, strokeCur
 
       const showLegend = legendPosition !== 'hidden';
       const legendPos: 'top' | 'bottom' | 'left' | 'right' = showLegend ? legendPosition! : 'top';
+      let initialColors = ['#FF4560', '#008FFB', '#00E396', '#FEB019', '#FF5828', '#FFD601', '#36B37E', '#008FFB', '#4BC0C0', '#E91E63', '#9C27B0', '#673AB7', '#3F51B5', '#2196F3', '#03A9F4', '#00BCD4', '#009688', '#4CAF50', '#8BC34A', '#CDDC39', '#FFEB3B', '#FFC107', '#FF9800', '#FF5722', '#795548', '#9E9E9E', '#607D8B'];
+      const chartColorsArr = chartColors?.map((color) => color.color) ?? initialColors;
 
       const options: ApexOptions = {
         chart: {
@@ -39,6 +41,7 @@ const Area: FC<IAreaProps> = ({ displayLabels, xAxisTitle, yAxisTitle, strokeCur
             }
           }
         },
+        colors: chartColorsArr,
         dataLabels: {
           enabled: datas.options.dataLabels?.enabled ?? displayLabels
         },

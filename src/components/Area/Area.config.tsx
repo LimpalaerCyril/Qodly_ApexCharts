@@ -74,6 +74,7 @@ export interface IAreaProps extends webforms.ComponentProps {
   name?: string;
   chartType?: 'area' | 'bar' | 'line';
   annotations?: IAnnotation[];
+  chartColors?: IColor[];
   exportable?: boolean;
   zoomable?: boolean;
   displayLabels?: boolean;
@@ -82,6 +83,10 @@ export interface IAreaProps extends webforms.ComponentProps {
   titlePosition?: 'center' | 'left' | 'right';
   xAxisTitle?: string;
   yAxisTitle?: string;
+}
+
+export interface IColor {
+  color: string;
 }
 
 export interface IAnnotation {

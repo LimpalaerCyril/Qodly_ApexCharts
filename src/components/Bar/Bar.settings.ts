@@ -70,6 +70,19 @@ const commonSettings: TSetting[] = [
     key: 'displayLabels',
     label: 'Display labels',
     type: ESetting.CHECKBOX,
+  },
+  {
+    type: ESetting.DATAGRID,
+    key: 'chartColors',
+    name: 'chartColors',
+    label: 'Chart colors',
+    data: [
+      {
+        key: 'color',
+        label: 'Color',
+        type: ESetting.COLOR_PICKER,
+      }
+    ],
   }
 ];
 

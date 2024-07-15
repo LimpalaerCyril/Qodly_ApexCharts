@@ -6,7 +6,7 @@ import { IPieProps } from './Pie.config';
 import ReactApexChart from 'react-apexcharts';
 import { ApexOptions } from 'apexcharts';
 
-const Pie: FC<IPieProps> = ({ displayLabels, chartType, gradient, titlePosition, legendPosition, name, style, className, classNames = [] }) => {
+const Pie: FC<IPieProps> = ({ displayLabels, chartType, chartColors, gradient, titlePosition, legendPosition, name, style, className, classNames = [] }) => {
 	const {
 		connectors: { connect },
 	} = useEnhancedNode();
@@ -14,12 +14,14 @@ const Pie: FC<IPieProps> = ({ displayLabels, chartType, gradient, titlePosition,
 	const gradientType = gradient ? 'gradient' : 'solid';
 	const showLegend = legendPosition !== 'hidden';
 	const legendPos: 'top' | 'bottom' | 'left' | 'right' = showLegend ? legendPosition! : 'top';
+	const chartColorsArr = chartColors?.map((color) => color.color) ?? ['#FF4560', '#008FFB', '#00E396', '#FEB019', '#FF5828', '#FFD601', '#36B37E', '#008FFB', '#4BC0C0'];
 
 	const options: ApexOptions = useMemo(
 		() => ({
 			chart: {
 				type: chartType
 			},
+			colors: chartColorsArr,
 			responsive: [{
 				breakpoint: 480,
 				options: {
@@ -47,7 +49,7 @@ const Pie: FC<IPieProps> = ({ displayLabels, chartType, gradient, titlePosition,
 				align: titlePosition
 			}
 		}),
-		[legendPos, name, showLegend, titlePosition, chartType, gradientType, displayLabels]
+		[legendPos, name, showLegend, titlePosition, chartType, chartColors, gradientType, displayLabels]
 	)
 
 	const series = useMemo( // Prevents unnecessary re-renders if no editor changes

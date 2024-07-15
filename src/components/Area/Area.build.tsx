@@ -6,13 +6,15 @@ import { IAnnotation, IAreaProps } from './Area.config';
 import ReactApexChart from 'react-apexcharts';
 import { ApexOptions } from 'apexcharts';
 
-const Area: FC<IAreaProps> = ({ annotations, displayLabels, xAxisTitle, yAxisTitle, strokeCurve, chartType, exportable, zoomable, titlePosition, legendPosition, name, style, className, classNames = [] }) => {
+const Area: FC<IAreaProps> = ({ annotations, displayLabels, chartColors, xAxisTitle, yAxisTitle, strokeCurve, chartType, exportable, zoomable, titlePosition, legendPosition, name, style, className, classNames = [] }) => {
 	const {
 		connectors: { connect },
 	} = useEnhancedNode();
 
 	const showLegend = legendPosition !== 'hidden';
 	const legendPos: 'top' | 'bottom' | 'left' | 'right' = showLegend ? legendPosition! : 'top'; var yaxis: YAxisAnnotations[] = [];
+	const initialColors = ['#FF4560', '#008FFB', '#00E396', '#FEB019', '#FF5828', '#FFD601', '#36B37E', '#008FFB', '#4BC0C0', '#E91E63', '#9C27B0', '#673AB7', '#3F51B5', '#2196F3', '#03A9F4', '#00BCD4', '#009688', '#4CAF50', '#8BC34A', '#CDDC39', '#FFEB3B', '#FFC107', '#FF9800', '#FF5722', '#795548', '#9E9E9E', '#607D8B'];
+	const chartColorsArr = chartColors?.map((color) => color.color) ?? initialColors;
 	var xaxis: XAxisAnnotations[] = [];
 	var points: PointAnnotations[] = [];
 	for (const annotation of annotations || []) {
@@ -78,6 +80,7 @@ const Area: FC<IAreaProps> = ({ annotations, displayLabels, xAxisTitle, yAxisTit
 					}
 				}
 			},
+			colors: chartColorsArr,
 			annotations: {
 				yaxis: annotationsObj.yaxis,
 				xaxis: annotationsObj.xaxis,
@@ -115,7 +118,7 @@ const Area: FC<IAreaProps> = ({ annotations, displayLabels, xAxisTitle, yAxisTit
 				}
 			}
 		}),
-		[legendPos, name, showLegend, titlePosition, zoomable, exportable, strokeCurve, chartType, displayLabels]
+		[legendPos, name, showLegend, titlePosition, zoomable, exportable, strokeCurve, chartType, displayLabels, chartColors]
 	)
 
 	const series = useMemo( // Prevents unnecessary re-renders if no editor changes

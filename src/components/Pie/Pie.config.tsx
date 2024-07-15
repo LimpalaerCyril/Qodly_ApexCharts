@@ -71,8 +71,13 @@ export default {
 export interface IPieProps extends webforms.ComponentProps {
   name?: string;
   chartType?: 'pie' | 'donut';
+  chartColors?: IColor[];
   gradient?: boolean;
   displayLabels?: boolean;
   legendPosition?: 'top' | 'bottom' | 'left' | 'right' | 'hidden';
   titlePosition?: 'center' | 'left' | 'right';
+}
+
+export interface IColor {
+  color: string;
 }

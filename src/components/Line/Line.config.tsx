@@ -67,6 +67,8 @@ export default {
 		style: {
 			width: '500px',
 		},
+		xAxisTickAmount: 12,
+		yAxisTickAmount: 8,
 	},
 } as T4DComponentConfig<ILineProps>;
 
@@ -74,6 +76,7 @@ export interface ILineProps extends webforms.ComponentProps {
 	name?: string;
 	chartType?: 'line' | 'area' | 'bar';
 	annotations?: IAnnotation[];
+	chartColors?: IColor[];
 	exportable?: boolean;
 	zoomable?: boolean;
 	displayLabels?: boolean;
@@ -82,6 +85,12 @@ export interface ILineProps extends webforms.ComponentProps {
 	titlePosition?: 'center' | 'left' | 'right';
 	xAxisTitle?: string;
 	yAxisTitle?: string;
+	yAxisTickAmount?: number;
+	xAxisTickAmount?: number;
+}
+
+export interface IColor {
+	color: string;
 }
 
 export interface IAnnotation {

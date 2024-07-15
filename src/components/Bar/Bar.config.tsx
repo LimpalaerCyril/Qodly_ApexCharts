@@ -73,6 +73,7 @@ export default {
 export interface IBarProps extends webforms.ComponentProps {
 	name?: string;
 	chartType?: 'bar' | 'line' | 'area';
+	chartColors?: IColor[];
 	exportable?: boolean;
 	zoomable?: boolean;
 	displayLabels?: boolean;
@@ -81,4 +82,8 @@ export interface IBarProps extends webforms.ComponentProps {
 	titlePosition?: 'center' | 'left' | 'right';
 	xAxisTitle?: string;
 	yAxisTitle?: string;
+}
+
+export interface IColor {
+	color: string;
 }
