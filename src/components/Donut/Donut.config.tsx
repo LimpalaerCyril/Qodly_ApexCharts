@@ -71,8 +71,13 @@ export default {
 export interface IDonutProps extends webforms.ComponentProps {
   name?: string;
   chartType?: 'donut' | 'pie';
+  chartColors?: IColor[];
   gradient?: boolean;
   displayLabels?: boolean;
   legendPosition?: 'top' | 'bottom' | 'left' | 'right' | 'hidden';
   titlePosition?: 'center' | 'left' | 'right';
+}
+
+export interface IColor {
+  color: string;
 }

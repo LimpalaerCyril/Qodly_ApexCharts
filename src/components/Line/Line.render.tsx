@@ -6,7 +6,7 @@ import { IAnnotation, ILineProps } from './Line.config';
 import ReactApexChart from 'react-apexcharts';
 import { ApexOptions } from 'apexcharts';
 
-const Line: FC<ILineProps> = ({ annotations, displayLabels, xAxisTitle, yAxisTitle, strokeCurve, chartType, exportable, zoomable, titlePosition, legendPosition, name, style, className, classNames = [] }) => {
+const Line: FC<ILineProps> = ({ annotations, displayLabels, chartColors, yAxisTickAmount, xAxisTickAmount, xAxisTitle, yAxisTitle, strokeCurve, chartType, exportable, zoomable, titlePosition, legendPosition, name, style, className, classNames = [] }) => {
 	const { connect } = useRenderer();
 	const [chartData, setChartData] = useState<any>(null);
 	const {
@@ -80,6 +80,8 @@ const Line: FC<ILineProps> = ({ annotations, displayLabels, xAxisTitle, yAxisTit
 
 			const showLegend = legendPosition !== 'hidden';
 			const legendPos: 'top' | 'bottom' | 'left' | 'right' = showLegend ? legendPosition! : 'top';
+			let initialColors = ['#FF4560', '#008FFB', '#00E396', '#FEB019', '#FF5828', '#FFD601', '#36B37E', '#008FFB', '#4BC0C0', '#E91E63', '#9C27B0', '#673AB7', '#3F51B5', '#2196F3', '#03A9F4', '#00BCD4', '#009688', '#4CAF50', '#8BC34A', '#CDDC39', '#FFEB3B', '#FFC107', '#FF9800', '#FF5722', '#795548', '#9E9E9E', '#607D8B'];
+			const chartColorsArr = chartColors?.map((color) => color.color) ?? initialColors;
 
 			const options: ApexOptions = {
 				chart: {
@@ -93,6 +95,7 @@ const Line: FC<ILineProps> = ({ annotations, displayLabels, xAxisTitle, yAxisTit
 						}
 					}
 				},
+				colors: chartColorsArr,
 				annotations: {
 					yaxis: datas.options.annotations?.yaxis ?? annotationsObj.yaxis,
 					xaxis: datas.options.annotations?.xaxis ?? annotationsObj.xaxis,
@@ -122,15 +125,47 @@ const Line: FC<ILineProps> = ({ annotations, displayLabels, xAxisTitle, yAxisTit
 					categories: datas.options.xaxis?.categories,
 					title: {
 						text: datas.options.xaxis?.title?.text ?? xAxisTitle
-					}
+					},
+					tickAmount: datas.options.xaxis?.tickAmount ?? xAxisTickAmount,
 				},
 				yaxis: {
 					title: {
 						text: datas.options.yaxis?.title?.text ?? yAxisTitle
-					}
+					},
+					tickAmount: datas.options.xaxis?.tickAmount ?? yAxisTickAmount,
 				}
 			};
+
 			var series: any[] = datas.series
+
+			if (datas.options.xaxis?.type === 'datetime') {
+				if (options.xaxis) {
+					options.xaxis.labels = {
+						formatter: function (value: string, timestamp: number, opts: any) {
+							if (timestamp) {
+								var formatOptions: Intl.DateTimeFormatOptions = {
+									year: "numeric",
+									month: "numeric",
+									day: "numeric",
+									hour: "numeric",
+									minute: "numeric",
+									hour12: false
+								};
+								if (opts?.w.globals.zoomed ?? false) {
+									return new Intl.DateTimeFormat("fr-FR", formatOptions).format(new Date(value));
+								}
+								else {
+									if (!opts) {
+										return new Intl.DateTimeFormat("fr-FR", formatOptions).format(new Date(value));
+									}
+									return new Intl.DateTimeFormat("fr-FR").format(new Date(value));
+								}
+							}
+							return "";
+						}
+					}
+				}
+			}
 
 			var chart = {
 				options: options,

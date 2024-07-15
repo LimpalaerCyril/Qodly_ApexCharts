@@ -6,7 +6,7 @@ import { IPieProps } from './Pie.config';
 import ReactApexChart from 'react-apexcharts';
 import { ApexOptions } from 'apexcharts';
 
-const Pie: FC<IPieProps> = ({ displayLabels, chartType, gradient, titlePosition, legendPosition, name, style, className, classNames = [] }) => {
+const Pie: FC<IPieProps> = ({ displayLabels, chartType, chartColors, gradient, titlePosition, legendPosition, name, style, className, classNames = [] }) => {
 	const { connect } = useRenderer();
 	const [chartData, setChartData] = useState<any>(null);
 	const {
@@ -28,11 +28,13 @@ const Pie: FC<IPieProps> = ({ displayLabels, chartType, gradient, titlePosition,
 			const gradientType = gradient ? 'gradient' : 'solid';
 			const showLegend = legendPosition !== 'hidden';
 			const legendPos: 'top' | 'bottom' | 'left' | 'right' = showLegend ? legendPosition! : 'top';
+			const chartColorsArr = chartColors?.map((color) => color.color) ?? ['#FF4560', '#008FFB', '#00E396', '#FEB019', '#FF5828', '#FFD601', '#36B37E', '#008FFB', '#4BC0C0'];
 
 			const options: ApexOptions = {
 				chart: {
 					type: chartType
 				},
+				colors: chartColorsArr,
 				responsive: datas.options.responsive ?? [{
 					breakpoint: 480,
 					options: {
