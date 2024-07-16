@@ -82,6 +82,8 @@ export interface IBarProps extends webforms.ComponentProps {
 	titlePosition?: 'center' | 'left' | 'right';
 	xAxisTitle?: string;
 	yAxisTitle?: string;
+	yAxisMin?: number;
+	yAxisMax?: number;
 }
 
 export interface IColor {

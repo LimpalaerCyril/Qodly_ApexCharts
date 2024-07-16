@@ -6,7 +6,7 @@ import { IAreaProps } from './Area.config';
 import { ApexOptions } from 'apexcharts';
 import ReactApexChart from 'react-apexcharts';
 
-const Area: FC<IAreaProps> = ({ displayLabels, xAxisTitle, chartColors, yAxisTitle, strokeCurve, chartType, exportable, zoomable, titlePosition, legendPosition, name, style, className, classNames = [] }) => {
+const Area: FC<IAreaProps> = ({ displayLabels, chartColors, yAxisMin, yAxisMax, xAxisTitle, yAxisTitle, strokeCurve, chartType, exportable, zoomable, titlePosition, legendPosition, name, style, className, classNames = [] }) => {
   const { connect } = useRenderer();
   const [chartData, setChartData] = useState<any>(null);
   const {
@@ -71,7 +71,9 @@ const Area: FC<IAreaProps> = ({ displayLabels, xAxisTitle, chartColors, yAxisTit
         yaxis: {
           title: {
             text: datas.options.yaxis?.title?.text ?? yAxisTitle
-          }
+          },
+          min: datas.options.yaxis?.min ?? yAxisMin,
+          max: datas.options.yaxis?.max ?? yAxisMax
         }
       };
       var series: any[] = datas.series

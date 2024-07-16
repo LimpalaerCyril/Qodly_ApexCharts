@@ -6,7 +6,7 @@ import { IAnnotation, IAreaProps } from './Area.config';
 import ReactApexChart from 'react-apexcharts';
 import { ApexOptions } from 'apexcharts';
 
-const Area: FC<IAreaProps> = ({ annotations, displayLabels, chartColors, xAxisTitle, yAxisTitle, strokeCurve, chartType, exportable, zoomable, titlePosition, legendPosition, name, style, className, classNames = [] }) => {
+const Area: FC<IAreaProps> = ({ annotations, displayLabels, chartColors, yAxisMin, yAxisMax, xAxisTitle, yAxisTitle, strokeCurve, chartType, exportable, zoomable, titlePosition, legendPosition, name, style, className, classNames = [] }) => {
 	const {
 		connectors: { connect },
 	} = useEnhancedNode();
@@ -65,6 +65,10 @@ const Area: FC<IAreaProps> = ({ annotations, displayLabels, chartColors, xAxisTi
 			});
 		}
 	}
+	var datamultiplier = 1;
+	if (yAxisMax) {
+		datamultiplier = yAxisMax / 150;
+	}
 	var annotationsObj = { yaxis: yaxis, xaxis: xaxis, points: points }
 
 	const options: ApexOptions = useMemo(
@@ -115,24 +119,26 @@ const Area: FC<IAreaProps> = ({ annotations, displayLabels, chartColors, xAxisTi
 			yaxis: {
 				title: {
 					text: yAxisTitle
-				}
+				},
+				min: yAxisMin,
+				max: yAxisMax
 			}
 		}),
-		[legendPos, name, showLegend, titlePosition, zoomable, exportable, strokeCurve, chartType, displayLabels, chartColors]
+		[legendPos, name, showLegend, titlePosition, zoomable, exportable, strokeCurve, chartType, displayLabels, yAxisMin, yAxisMax, xAxisTitle, yAxisTitle, annotationsObj]
 	)
 
 	const series = useMemo( // Prevents unnecessary re-renders if no editor changes
 		() => [
 			{
 				name: 'Value 1',
-				data: Array.from({ length: 9 }, () => Math.floor(Math.random() * 150))
+				data: Array.from({ length: 9 }, () => (Math.floor(Math.random() * 150 * datamultiplier)))
 			},
 			{
 				name: 'Value 2',
-				data: Array.from({ length: 9 }, () => Math.floor(Math.random() * 150))
+				data: Array.from({ length: 9 }, () => (Math.floor(Math.random() * 150 * datamultiplier)))
 			}
 		],
-		[legendPos, name, showLegend, titlePosition, zoomable, exportable]
+		[yAxisMax]
 	)
 
 	const chart = {

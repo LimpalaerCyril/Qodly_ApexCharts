@@ -74,6 +74,16 @@ const commonSettings: TSetting[] = [
 		type: ESetting.TEXT_FIELD,
 	},
 	{
+		key: 'yAxisMin',
+		label: 'Y Axis min value',
+		type: ESetting.NUMBER_FIELD,
+	},
+	{
+		key: 'yAxisMax',
+		label: 'Y Axis max value',
+		type: ESetting.NUMBER_FIELD,
+	},
+	{
 		key: 'zoomable',
 		label: 'Zoomable',
 		type: ESetting.CHECKBOX,

@@ -6,7 +6,7 @@ import { IAnnotation, ILineProps } from './Line.config';
 import ReactApexChart from 'react-apexcharts';
 import { ApexOptions } from 'apexcharts';
 
-const Line: FC<ILineProps> = ({ annotations, displayLabels, chartColors, yAxisTickAmount, xAxisTickAmount, xAxisTitle, yAxisTitle, strokeCurve, chartType, exportable, zoomable, titlePosition, legendPosition, name, style, className, classNames = [] }) => {
+const Line: FC<ILineProps> = ({ annotations, displayLabels, yAxisTickAmount, xAxisTickAmount, chartColors, yAxisMin, yAxisMax, xAxisTitle, yAxisTitle, strokeCurve, chartType, exportable, zoomable, titlePosition, legendPosition, name, style, className, classNames = [] }) => {
 	const { connect } = useRenderer();
 	const [chartData, setChartData] = useState<any>(null);
 	const {
@@ -133,6 +133,8 @@ const Line: FC<ILineProps> = ({ annotations, displayLabels, chartColors, yAxisTi
 						text: datas.options.yaxis?.title?.text ?? yAxisTitle
 					},
 					tickAmount: datas.options.xaxis?.tickAmount ?? yAxisTickAmount,
+					min: datas.options.yaxis?.min ?? yAxisMin,
+					max: datas.options.yaxis?.max ?? yAxisMax
 				}
 			};
 

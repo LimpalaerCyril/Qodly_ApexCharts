@@ -87,6 +87,8 @@ export interface ILineProps extends webforms.ComponentProps {
 	yAxisTitle?: string;
 	yAxisTickAmount?: number;
 	xAxisTickAmount?: number;
+	yAxisMin?: number;
+	yAxisMax?: number;
 }
 
 export interface IColor {
