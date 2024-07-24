@@ -15,6 +15,7 @@ yalc.lock
 manifest.json
 qodly_*.tgz
 qodly_*.zip
+builds
 
 # Editor directories and files
 .vscode/*
