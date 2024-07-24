@@ -64,11 +64,11 @@ export default {
 		zoomable: true,
 		displayLabels: true,
 		strokeCurve: 'straight',
-		style: {
-			width: '500px',
-		},
 		xAxisTickAmount: 12,
 		yAxisTickAmount: 8,
+		style: {
+			width: '500px',
+		}
 	},
 } as T4DComponentConfig<ILineProps>;
 

@@ -6,7 +6,7 @@ import { IAnnotation, ILineProps } from './Line.config';
 import ReactApexChart from 'react-apexcharts';
 import { ApexOptions } from 'apexcharts';
 
-const Line: FC<ILineProps> = ({ annotations, displayLabels, chartColors, yAxisMin, yAxisMax, xAxisTitle, yAxisTitle, strokeCurve, chartType, exportable, zoomable, titlePosition, legendPosition, name, style, className, classNames = [] }) => {
+const Line: FC<ILineProps> = ({ annotations, displayLabels, yAxisTickAmount, xAxisTickAmount, chartColors, yAxisMin, yAxisMax, xAxisTitle, yAxisTitle, strokeCurve, chartType, exportable, zoomable, titlePosition, legendPosition, name, style, className, classNames = [] }) => {
 	const {
 		connectors: { connect },
 	} = useEnhancedNode();
@@ -112,31 +112,33 @@ const Line: FC<ILineProps> = ({ annotations, displayLabels, chartColors, yAxisMi
 				}
 			},
 			xaxis: {
-				categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep'],
+				categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
 				title: {
 					text: xAxisTitle
-				}
+				},
+				tickAmount: xAxisTickAmount,
 			},
 			yaxis: {
 				title: {
 					text: yAxisTitle
 				},
+				tickAmount: yAxisTickAmount,
 				min: yAxisMin,
 				max: yAxisMax
 			}
 		}),
-		[legendPos, name, showLegend, titlePosition, zoomable, exportable, strokeCurve, chartType, xAxisTitle, yAxisTitle, displayLabels, annotations, yAxisMin, yAxisMax, chartColors]
+		[legendPos, name, showLegend, titlePosition, zoomable, exportable, strokeCurve, chartType, xAxisTitle, yAxisTitle, displayLabels, annotations, yAxisMin, yAxisMax, chartColors, xAxisTickAmount, yAxisTickAmount]
 	)
 
 	const series = useMemo( // Prevents unnecessary re-renders if no editor changes
 		() => [
 			{
 				name: 'Value 1',
-				data: Array.from({ length: 9 }, () => (Math.floor(Math.random() * 150 * datamultiplier)))
+				data: Array.from({ length: 12 }, () => (Math.floor(Math.random() * 150 * datamultiplier)))
 			},
 			{
 				name: 'Value 2',
-				data: Array.from({ length: 9 }, () => (Math.floor(Math.random() * 150 * datamultiplier)))
+				data: Array.from({ length: 12 }, () => (Math.floor(Math.random() * 150 * datamultiplier)))
 			}
 		],
 		[yAxisMax]

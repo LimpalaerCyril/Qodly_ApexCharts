@@ -2,11 +2,11 @@ import { useRenderer, useSources } from '@ws-ui/webform-editor';
 import cn from 'classnames';
 import { FC, useEffect, useState } from 'react';
 
-import { IAreaProps } from './Area.config';
+import { IAnnotation, IAreaProps } from './Area.config';
 import { ApexOptions } from 'apexcharts';
 import ReactApexChart from 'react-apexcharts';
 
-const Area: FC<IAreaProps> = ({ displayLabels, chartColors, yAxisMin, yAxisMax, xAxisTitle, yAxisTitle, strokeCurve, chartType, exportable, zoomable, titlePosition, legendPosition, name, style, className, classNames = [] }) => {
+const Area: FC<IAreaProps> = ({ displayLabels, chartColors, annotations, yAxisTickAmount, xAxisTickAmount, yAxisMin, yAxisMax, xAxisTitle, yAxisTitle, strokeCurve, chartType, exportable, zoomable, titlePosition, legendPosition, name, style, className, classNames = [] }) => {
   const { connect } = useRenderer();
   const [chartData, setChartData] = useState<any>(null);
   const {
@@ -23,6 +23,60 @@ const Area: FC<IAreaProps> = ({ displayLabels, chartColors, yAxisMin, yAxisMax, 
         datas = JSON.parse(v);
       else
         datas = JSON.parse(JSON.stringify(v));
+
+      var yaxis: YAxisAnnotations[] = [];
+      var xaxis: XAxisAnnotations[] = [];
+      var points: PointAnnotations[] = [];
+      for (const annotation of annotations || []) {
+        if (annotation.axis === 'y') {
+          yaxis.push({
+            y: applyCoordType(annotation.coordType, annotation.coordFrom),
+            y2: applyCoordType(annotation.coordType, annotation.coordTo),
+            borderColor: annotation.borderColor,
+            fillColor: annotation.backgroundColor,
+            label: {
+              text: annotation.text,
+              style: {
+                color: '#fff',
+                background: annotation.backgroundColor
+              }
+            }
+          });
+        } else if (annotation.axis === 'x') {
+          xaxis.push({
+            x: applyCoordType(annotation.coordType, annotation.coordFrom),
+            x2: applyCoordType(annotation.coordType, annotation.coordTo),
+            borderColor: annotation.borderColor,
+            fillColor: annotation.backgroundColor,
+            label: {
+              text: annotation.text,
+              style: {
+                color: '#fff',
+                background: annotation.backgroundColor
+              }
+            }
+          });
+        } else if (annotation.axis === 'point') {
+          points.push({
+            x: applyCoordType(annotation.coordType, annotation.coordFrom),
+            y: parseFloat(annotation.coordTo),
+            marker: {
+              size: 8,
+              fillColor: annotation.backgroundColor,
+              strokeColor: annotation.borderColor,
+              radius: 2
+            },
+            label: {
+              text: annotation.text,
+              style: {
+                color: '#fff',
+                background: annotation.backgroundColor
+              }
+            }
+          });
+        }
+      }
+      var annotationsObj = { yaxis: yaxis, xaxis: xaxis, points: points }
 
       const showLegend = legendPosition !== 'hidden';
       const legendPos: 'top' | 'bottom' | 'left' | 'right' = showLegend ? legendPosition! : 'top';
@@ -42,6 +96,11 @@ const Area: FC<IAreaProps> = ({ displayLabels, chartColors, yAxisMin, yAxisMax, 
           }
         },
         colors: chartColorsArr,
+        annotations: {
+          yaxis: datas.options.annotations?.yaxis ?? annotationsObj.yaxis,
+          xaxis: datas.options.annotations?.xaxis ?? annotationsObj.xaxis,
+          points: datas.options.annotations?.points ?? annotationsObj.points
+        },
         dataLabels: {
           enabled: datas.options.dataLabels?.enabled ?? displayLabels
         },
@@ -66,12 +125,14 @@ const Area: FC<IAreaProps> = ({ displayLabels, chartColors, yAxisMin, yAxisMax, 
           categories: datas.options.xaxis?.categories,
           title: {
             text: datas.options.xaxis?.title?.text ?? xAxisTitle
-          }
+          },
+          tickAmount: datas.options.xaxis?.tickAmount ?? xAxisTickAmount,
         },
         yaxis: {
           title: {
             text: datas.options.yaxis?.title?.text ?? yAxisTitle
           },
+          tickAmount: datas.options.yaxis?.tickAmount ?? yAxisTickAmount,
           min: datas.options.yaxis?.min ?? yAxisMin,
           max: datas.options.yaxis?.max ?? yAxisMax
         }
@@ -104,5 +165,16 @@ const Area: FC<IAreaProps> = ({ displayLabels, chartColors, yAxisMin, yAxisMax, 
     </div>
   );
 };
+
+function applyCoordType(type: IAnnotation['coordType'], value: string): string | number {
+  switch (type) {
+    case 'string':
+      return value;
+    case 'number':
+      return parseFloat(value);
+    case 'datetime':
+      return new Date(value).getTime();
+  }
+}
 
 export default Area;

@@ -74,6 +74,16 @@ const commonSettings: TSetting[] = [
 		type: ESetting.TEXT_FIELD,
 	},
 	{
+		key: 'yAxisTickAmount',
+		label: 'Y Axis tick amount',
+		type: ESetting.NUMBER_FIELD,
+	},
+	{
+		key: 'xAxisTickAmount',
+		label: 'X Axis tick amount',
+		type: ESetting.NUMBER_FIELD,
+	},
+	{
 		key: 'yAxisMin',
 		label: 'Y Axis min value',
 		type: ESetting.NUMBER_FIELD,

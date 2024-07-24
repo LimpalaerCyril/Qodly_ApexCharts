@@ -17,6 +17,7 @@ The DataSource can be exactly the same for both of them.
 | `Chart Type`      | String           | Type of the chart, the value can be among the following: `Pie`, `Doughnut`, The default value depends on the component that was initially selected. |
 | `Gradient`        | Boolean          | Define if the chart's color is a gradient or not                                                                                                    |
 | `Display Labels`  | Boolean          | Define if the data labels are displayed on the chart                                                                                                |
+| `Chart colors`    | Colors           | Define all the colors used in the chart (If omitted predefined colors are used)                                                                     |
 | `DataSource`      | Object or String | Structure of the chart, containing the datas                                                                                                        |
 
 #### DataSource
@@ -60,20 +61,25 @@ The DataSource can be exactly the same for all of them.
 
 ![Example of Area, Bar and Line charts](public/area_bar_line.png)
 
-| Name              | Type             | Description                                                                                                                                                                                 |
-| ----------------- | ---------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `Title`           | String           | Chart Title.                                                                                                                                                                                |
-| `Title Position`  | String           | Chart Title position, the value can be among the following: `left`,`center`,`right`, By default the value is `center`.                                                                      |
-| `Legend Position` | String           | Position of the legend, the value can be among the following: `top`, `bottom`, `left`,`right`,`hidden`. By default the value is `top`.                                                      |
-| `Chart Type`      | String           | Type of the chart, the value can be among the following: `Area`, `Bar`, `Line`. The default value depends on the component that was initially selected.                                     |
-| `Stroke Curve`    | String           | Curve of the stroke, the value can be among the following: `Straight`, `Smooth`, `Monotone Cubic`,`Stepline`. By default the value is `Straight`. This options is not working on Bar charts |
-| `X Axis Title`    | String           | Optional: Text that describe the data on the X Axis                                                                                                                                         |
-| `Y Axis Title`    | String           | Optional: Text that describe the data on the Y Axis                                                                                                                                         |
-| `Zoomable`        | Boolean          | Define if the chart is zoomable. This options is not working on Bar charts                                                                                                                  |
-| `Exportable`      | Boolean          | Define if the chart is Exportable. (Available formats are: SVG, PNG and CSV)                                                                                                                |
-| `Display Labels`  | Boolean          | Define if the data labels are displayed on the chart                                                                                                                                        |
-| `Annotations`     | Annotation       | Add an annotation, not available. This options is not working on Bar charts                                                                                                                 |
-| `DataSource`      | Object or String | Structure of the chart, containing the datas                                                                                                                                                |
+| Name                 | Type             | Description                                                                                                                                                                                 |
+| -------------------- | ---------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `Title`              | String           | Chart Title.                                                                                                                                                                                |
+| `Title Position`     | String           | Chart Title position, the value can be among the following: `left`,`center`,`right`, By default the value is `center`.                                                                      |
+| `Legend Position`    | String           | Position of the legend, the value can be among the following: `top`, `bottom`, `left`,`right`,`hidden`. By default the value is `top`.                                                      |
+| `Chart Type`         | String           | Type of the chart, the value can be among the following: `Area`, `Bar`, `Line`. The default value depends on the component that was initially selected.                                     |
+| `Stroke Curve`       | String           | Curve of the stroke, the value can be among the following: `Straight`, `Smooth`, `Monotone Cubic`,`Stepline`. By default the value is `Straight`. This options is not working on Bar charts |
+| `X Axis Title`       | String           | Optional: Text that describe the data on the X Axis                                                                                                                                         |
+| `Y Axis Title`       | String           | Optional: Text that describe the data on the Y Axis                                                                                                                                         |
+| `Y Axis tick amount` | Number           | Number of tick displayed on Y axis, By default the value is 8                                                                                                                               |
+| `Y Axis tick amount` | Number           | Number of tick displayed on X axis, By default the value is 12                                                                                                                              |
+| `Y Axis min value`   | Number           | Optional: Minimum y value displayed on the chart                                                                                                                                            |
+| `Y Axis max value`   | Number           | Optional: Maximum y value displayed on the chart                                                                                                                                            |
+| `Zoomable`           | Boolean          | Define if the chart is zoomable. This options is not working on Bar charts                                                                                                                  |
+| `Exportable`         | Boolean          | Define if the chart is Exportable. (Available formats are: SVG, PNG and CSV)                                                                                                                |
+| `Display Labels`     | Boolean          | Define if the data labels are displayed on the chart                                                                                                                                        |
+| `Chart colors`       | Colors           | Define all the colors used in the chart (If omitted predefined colors are used)                                                                                                             |
+| `Annotations`        | Annotation       | Add an annotation, not available. This options is not working on Bar charts                                                                                                                 |
+| `DataSource`         | Object or String | Structure of the chart, containing the datas                                                                                                                                                |
 
 #### Annotation
 

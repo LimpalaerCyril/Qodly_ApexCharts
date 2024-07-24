@@ -6,7 +6,7 @@ import { IBarProps } from './Bar.config';
 import ReactApexChart from 'react-apexcharts';
 import { ApexOptions } from 'apexcharts';
 
-const Bar: FC<IBarProps> = ({ displayLabels, chartColors, yAxisMin, yAxisMax, xAxisTitle, yAxisTitle, strokeCurve, chartType, exportable, zoomable, titlePosition, legendPosition, name, style, className, classNames = [] }) => {
+const Bar: FC<IBarProps> = ({ displayLabels, chartColors, yAxisTickAmount, xAxisTickAmount, yAxisMin, yAxisMax, xAxisTitle, yAxisTitle, strokeCurve, chartType, exportable, zoomable, titlePosition, legendPosition, name, style, className, classNames = [] }) => {
   const { connect } = useRenderer();
   const [chartData, setChartData] = useState<any>(null);
   const {
@@ -66,12 +66,14 @@ const Bar: FC<IBarProps> = ({ displayLabels, chartColors, yAxisMin, yAxisMax, xA
           categories: datas.options.xaxis?.categories,
           title: {
             text: datas.options.xaxis?.title?.text ?? xAxisTitle
-          }
+          },
+          tickAmount: datas.options.xaxis?.tickAmount ?? xAxisTickAmount
         },
         yaxis: {
           title: {
             text: datas.options.yaxis?.title?.text ?? yAxisTitle
           },
+          tickAmount: datas.options.xaxis?.tickAmount ?? yAxisTickAmount,
           min: datas.options.yaxis?.min ?? yAxisMin,
           max: datas.options.yaxis?.max ?? yAxisMax
         }

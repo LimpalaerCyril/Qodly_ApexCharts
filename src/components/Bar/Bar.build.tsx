@@ -6,7 +6,7 @@ import { IBarProps } from './Bar.config';
 import ReactApexChart from 'react-apexcharts';
 import { ApexOptions } from 'apexcharts';
 
-const Bar: FC<IBarProps> = ({ displayLabels, chartColors, yAxisMin, yAxisMax, xAxisTitle, yAxisTitle, strokeCurve, chartType, exportable, zoomable, titlePosition, legendPosition, name, style, className, classNames = [] }) => {
+const Bar: FC<IBarProps> = ({ displayLabels, chartColors, xAxisTickAmount, yAxisTickAmount, yAxisMin, yAxisMax, xAxisTitle, yAxisTitle, strokeCurve, chartType, exportable, zoomable, titlePosition, legendPosition, name, style, className, classNames = [] }) => {
   const {
     connectors: { connect },
   } = useEnhancedNode();
@@ -58,17 +58,19 @@ const Bar: FC<IBarProps> = ({ displayLabels, chartColors, yAxisMin, yAxisMax, xA
         categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep'],
         title: {
           text: xAxisTitle
-        }
+        },
+        tickAmount: xAxisTickAmount,
       },
       yaxis: {
         title: {
           text: yAxisTitle
         },
+        tickAmount: yAxisTickAmount,
         min: yAxisMin,
         max: yAxisMax
       }
     }),
-    [legendPos, name, showLegend, titlePosition, zoomable, exportable, strokeCurve, chartType, xAxisTitle, yAxisTitle, displayLabels, yAxisMin, yAxisMax]
+    [legendPos, name, showLegend, titlePosition, zoomable, exportable, strokeCurve, chartType, xAxisTitle, yAxisTitle, displayLabels, yAxisMin, yAxisMax, xAxisTickAmount, yAxisTickAmount]
   )
 
   const series = useMemo( // Prevents unnecessary re-renders if no editor changes

@@ -6,7 +6,7 @@ import { IAnnotation, IAreaProps } from './Area.config';
 import ReactApexChart from 'react-apexcharts';
 import { ApexOptions } from 'apexcharts';
 
-const Area: FC<IAreaProps> = ({ annotations, displayLabels, chartColors, yAxisMin, yAxisMax, xAxisTitle, yAxisTitle, strokeCurve, chartType, exportable, zoomable, titlePosition, legendPosition, name, style, className, classNames = [] }) => {
+const Area: FC<IAreaProps> = ({ annotations, displayLabels, yAxisTickAmount, xAxisTickAmount, chartColors, yAxisMin, yAxisMax, xAxisTitle, yAxisTitle, strokeCurve, chartType, exportable, zoomable, titlePosition, legendPosition, name, style, className, classNames = [] }) => {
 	const {
 		connectors: { connect },
 	} = useEnhancedNode();
@@ -114,12 +114,14 @@ const Area: FC<IAreaProps> = ({ annotations, displayLabels, chartColors, yAxisMi
 				categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep'],
 				title: {
 					text: xAxisTitle
-				}
+				},
+				tickAmount: xAxisTickAmount,
 			},
 			yaxis: {
 				title: {
 					text: yAxisTitle
 				},
+				tickAmount: yAxisTickAmount,
 				min: yAxisMin,
 				max: yAxisMax
 			}

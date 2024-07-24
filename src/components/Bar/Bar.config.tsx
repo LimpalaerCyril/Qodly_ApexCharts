@@ -64,6 +64,8 @@ export default {
 		zoomable: true,
 		displayLabels: true,
 		strokeCurve: 'straight',
+		xAxisTickAmount: 12,
+		yAxisTickAmount: 8,
 		style: {
 			width: '500px',
 		},
@@ -82,6 +84,8 @@ export interface IBarProps extends webforms.ComponentProps {
 	titlePosition?: 'center' | 'left' | 'right';
 	xAxisTitle?: string;
 	yAxisTitle?: string;
+	yAxisTickAmount?: number;
+	xAxisTickAmount?: number;
 	yAxisMin?: number;
 	yAxisMax?: number;
 }
