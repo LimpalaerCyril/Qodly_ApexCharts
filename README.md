@@ -78,7 +78,7 @@ The DataSource can be exactly the same for all of them.
 | `Exportable`         | Boolean          | Define if the chart is Exportable. (Available formats are: SVG, PNG and CSV)                                                                                                                |
 | `Display Labels`     | Boolean          | Define if the data labels are displayed on the chart                                                                                                                                        |
 | `Chart colors`       | Colors           | Define all the colors used in the chart (If omitted predefined colors are used)                                                                                                             |
-| `Annotations`        | Annotation       | Add an annotation, not available. This options is not working on Bar charts                                                                                                                 |
+| `Annotations`        | Annotation       | Add a fixed annotation to a specific place on the chart                                                                                                                                     |
 | `DataSource`         | Object or String | Structure of the chart, containing the datas                                                                                                                                                |
 
 #### Annotation

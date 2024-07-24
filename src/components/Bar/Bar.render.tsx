@@ -2,11 +2,11 @@ import { useRenderer, useSources } from '@ws-ui/webform-editor';
 import cn from 'classnames';
 import { FC, useEffect, useState } from 'react';
 
-import { IBarProps } from './Bar.config';
+import { IAnnotation, IBarProps } from './Bar.config';
 import ReactApexChart from 'react-apexcharts';
 import { ApexOptions } from 'apexcharts';
 
-const Bar: FC<IBarProps> = ({ displayLabels, chartColors, yAxisTickAmount, xAxisTickAmount, yAxisMin, yAxisMax, xAxisTitle, yAxisTitle, strokeCurve, chartType, exportable, zoomable, titlePosition, legendPosition, name, style, className, classNames = [] }) => {
+const Bar: FC<IBarProps> = ({ displayLabels, chartColors, annotations, yAxisTickAmount, xAxisTickAmount, yAxisMin, yAxisMax, xAxisTitle, yAxisTitle, strokeCurve, chartType, exportable, zoomable, titlePosition, legendPosition, name, style, className, classNames = [] }) => {
   const { connect } = useRenderer();
   const [chartData, setChartData] = useState<any>(null);
   const {
@@ -28,6 +28,58 @@ const Bar: FC<IBarProps> = ({ displayLabels, chartColors, yAxisTickAmount, xAxis
       const legendPos: 'top' | 'bottom' | 'left' | 'right' = showLegend ? legendPosition! : 'top';
       let initialColors = ['#FF4560', '#008FFB', '#00E396', '#FEB019', '#FF5828', '#FFD601', '#36B37E', '#008FFB', '#4BC0C0', '#E91E63', '#9C27B0', '#673AB7', '#3F51B5', '#2196F3', '#03A9F4', '#00BCD4', '#009688', '#4CAF50', '#8BC34A', '#CDDC39', '#FFEB3B', '#FFC107', '#FF9800', '#FF5722', '#795548', '#9E9E9E', '#607D8B'];
       const chartColorsArr = chartColors?.map((color) => color.color) ?? initialColors;
+      var yaxis: YAxisAnnotations[] = [];
+      var xaxis: XAxisAnnotations[] = [];
+      var points: PointAnnotations[] = [];
+      for (const annotation of annotations || []) {
+        if (annotation.axis === 'y') {
+          yaxis.push({
+            y: applyCoordType(annotation.coordType, annotation.coordFrom),
+            y2: applyCoordType(annotation.coordType, annotation.coordTo),
+            borderColor: annotation.borderColor,
+            fillColor: annotation.backgroundColor,
+            label: {
+              text: annotation.text,
+              style: {
+                color: '#fff',
+                background: annotation.backgroundColor
+              }
+            }
+          });
+        } else if (annotation.axis === 'x') {
+          xaxis.push({
+            x: applyCoordType(annotation.coordType, annotation.coordFrom),
+            x2: applyCoordType(annotation.coordType, annotation.coordTo),
+            borderColor: annotation.borderColor,
+            fillColor: annotation.backgroundColor,
+            label: {
+              text: annotation.text,
+              style: {
+                color: '#fff',
+                background: annotation.backgroundColor
+              }
+            }
+          });
+        } else if (annotation.axis === 'point') {
+          points.push({
+            x: applyCoordType(annotation.coordType, annotation.coordFrom),
+            y: parseFloat(annotation.coordTo),
+            marker: {
+              size: 4,
+              fillColor: annotation.backgroundColor,
+              strokeColor: annotation.borderColor
+            },
+            label: {
+              text: annotation.text,
+              style: {
+                color: '#fff',
+                background: annotation.backgroundColor
+              }
+            }
+          });
+        }
+      }
+      var annotationsObj = { yaxis: yaxis, xaxis: xaxis, points: points }
 
       const options: ApexOptions = {
         chart: {
@@ -42,6 +94,11 @@ const Bar: FC<IBarProps> = ({ displayLabels, chartColors, yAxisTickAmount, xAxis
           }
         },
         colors: chartColorsArr,
+        annotations: {
+          yaxis: datas.options.annotations?.yaxis ?? annotationsObj.yaxis,
+          xaxis: datas.options.annotations?.xaxis ?? annotationsObj.xaxis,
+          points: datas.options.annotations?.points ?? annotationsObj.points
+        },
         dataLabels: {
           enabled: datas.options.dataLabels?.enabled ?? displayLabels
         },
@@ -106,5 +163,16 @@ const Bar: FC<IBarProps> = ({ displayLabels, chartColors, yAxisTickAmount, xAxis
     </div>
   );
 };
+
+function applyCoordType(type: IAnnotation['coordType'], value: string): string | number {
+  switch (type) {
+    case 'string':
+      return value;
+    case 'number':
+      return parseFloat(value);
+    case 'datetime':
+      return new Date(value).getTime();
+  }
+}
 
 export default Bar;

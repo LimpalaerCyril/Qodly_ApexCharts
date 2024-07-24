@@ -75,6 +75,7 @@ export default {
 export interface IBarProps extends webforms.ComponentProps {
 	name?: string;
 	chartType?: 'bar' | 'line' | 'area';
+	annotations?: IAnnotation[];
 	chartColors?: IColor[];
 	exportable?: boolean;
 	zoomable?: boolean;
@@ -92,4 +93,14 @@ export interface IBarProps extends webforms.ComponentProps {
 
 export interface IColor {
 	color: string;
+}
+
+export interface IAnnotation {
+	text: string;
+	axis: 'x' | 'y' | 'point';
+	coordType: 'string' | 'number' | 'datetime';
+	coordFrom: string;
+	coordTo: string;
+	backgroundColor: string;
+	borderColor: string;
 }
