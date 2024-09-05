@@ -5,6 +5,7 @@ import Area from './Area';
 import Bar from './Bar';
 import Line from './Line';
 import Bubble from './Bubble';
+import Candlestick from './Candlestick';
 
 export default {
 	// components
@@ -14,4 +15,5 @@ export default {
 	Bar,
 	Line,
 	Bubble,
+	Candlestick,
 };
