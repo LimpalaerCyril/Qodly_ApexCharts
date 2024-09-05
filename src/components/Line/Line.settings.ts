@@ -40,7 +40,7 @@ const commonSettings: TSetting[] = [
 			{ value: 'hidden', icon: CgShortcut },
 		],
 	},
-	{
+	/*{
 		key: 'chartType',
 		label: 'Chart Type',
 		type: ESetting.SELECT,
@@ -50,7 +50,7 @@ const commonSettings: TSetting[] = [
 			{ value: 'area', label: 'Area' },
 			{ value: 'bar', label: 'Bar' },
 		],
-	},
+	},*/
 	{
 		key: 'strokeCurve',
 		label: 'Stroke Curve',
@@ -118,7 +118,7 @@ const commonSettings: TSetting[] = [
 				key: 'color',
 				label: 'Color',
 				type: ESetting.COLOR_PICKER,
-			}
+			},
 		],
 	},
 	{
@@ -152,7 +152,7 @@ const commonSettings: TSetting[] = [
 				options: [
 					{ value: 'string', label: 'String' },
 					{ value: 'number', label: 'Number' },
-					{ value: 'datetime', label: 'Datetime' }
+					{ value: 'datetime', label: 'Datetime' },
 				],
 			},
 			{
@@ -176,9 +176,9 @@ const commonSettings: TSetting[] = [
 				key: 'borderColor',
 				label: 'Border Color',
 				type: ESetting.COLOR_PICKER,
-			}
+			},
 		],
-	}
+	},
 ];
 
 const Settings: TSetting[] = [

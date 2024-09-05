@@ -1,6 +1,6 @@
 import { EComponentKind, T4DComponentConfig } from '@ws-ui/webform-editor';
 import { Settings } from '@ws-ui/webform-editor';
-import { FaChartBar } from "react-icons/fa";
+import { FaChartBar } from 'react-icons/fa';
 
 import BarSettings, { BasicSettings } from './Bar.settings';
 
@@ -57,6 +57,7 @@ export default {
 	},
 	defaultProps: {
 		name: 'Qodly Bar Chart name',
+		orientation: 'vertical',
 		legendPosition: 'top',
 		titlePosition: 'center',
 		chartType: 'bar',
@@ -74,6 +75,7 @@ export default {
 
 export interface IBarProps extends webforms.ComponentProps {
 	name?: string;
+	orientation?: 'vertical' | 'horizontal';
 	chartType?: 'bar' | 'line' | 'area';
 	annotations?: IAnnotation[];
 	chartColors?: IColor[];
