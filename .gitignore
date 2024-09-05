@@ -30,5 +30,6 @@ builds
 *.sw?
 
 # Env variables
+.env
 .env.*
 !.env.example
