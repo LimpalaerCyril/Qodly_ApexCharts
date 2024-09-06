@@ -40,24 +40,24 @@ const commonSettings: TSetting[] = [
 			{ value: 'hidden', icon: CgShortcut },
 		],
 	},
-	/*{
-    key: 'chartType',
-    label: 'Chart Type',
-    type: ESetting.SELECT,
-    defaultValue: 'donut',
-    options: [
-      { value: 'donut', label: 'Donut' },
-      { value: 'pie', label: 'Pie' }
-    ]
-  },*/
 	{
-		key: 'gradient',
-		label: 'Gradient',
+		key: 'xAxisTitle',
+		label: 'X Axis Title',
+		type: ESetting.TEXT_FIELD,
+	},
+	{
+		key: 'yAxisTitle',
+		label: 'Y Axis Title',
+		type: ESetting.TEXT_FIELD,
+	},
+	{
+		key: 'exportable',
+		label: 'Exportable',
 		type: ESetting.CHECKBOX,
 	},
 	{
 		key: 'displayLabels',
-		label: 'Display Labels',
+		label: 'Display labels',
 		type: ESetting.CHECKBOX,
 	},
 	{
@@ -69,6 +69,91 @@ const commonSettings: TSetting[] = [
 			{
 				key: 'color',
 				label: 'Color',
+				type: ESetting.COLOR_PICKER,
+			},
+		],
+	},
+	{
+		key: 'colorFlipper',
+		label: 'Color Flipper',
+		type: ESetting.CHECKBOX,
+	},
+	{
+		key: 'colorRanges',
+		label: 'Color Ranges',
+		type: ESetting.DATAGRID,
+		data: [
+			{
+				key: 'color',
+				label: 'Color',
+				type: ESetting.COLOR_PICKER,
+			},
+			{
+				key: 'from',
+				label: 'From',
+				type: ESetting.NUMBER_FIELD,
+			},
+			{
+				key: 'to',
+				label: 'To',
+				type: ESetting.NUMBER_FIELD,
+			},
+		],
+	},
+	{
+		type: ESetting.DATAGRID,
+		key: 'annotations',
+		name: 'text',
+		label: 'Annotations',
+		data: [
+			{
+				key: 'text',
+				label: 'Text',
+				type: ESetting.TEXT_FIELD,
+				defaultValue: 'Annotation',
+			},
+			{
+				key: 'axis',
+				label: 'Axis',
+				type: ESetting.SELECT,
+				defaultValue: 'x',
+				options: [
+					{ value: 'x', label: 'X' },
+					{ value: 'y', label: 'Y' },
+					{ value: 'point', label: 'Point' },
+				],
+			},
+			{
+				key: 'coordType',
+				label: 'Coordinate Type',
+				type: ESetting.SELECT,
+				defaultValue: 'string',
+				options: [
+					{ value: 'string', label: 'String' },
+					{ value: 'number', label: 'Number' },
+					{ value: 'datetime', label: 'Datetime' },
+				],
+			},
+			{
+				key: 'coordFrom',
+				label: 'From (X for point)',
+				placeholder: '2021-01-01',
+				type: ESetting.TEXT_FIELD,
+			},
+			{
+				key: 'coordTo',
+				label: 'To (Y for point)',
+				placeholder: '2021-12-31',
+				type: ESetting.TEXT_FIELD,
+			},
+			{
+				key: 'backgroundColor',
+				label: 'Background Color',
+				type: ESetting.COLOR_PICKER,
+			},
+			{
+				key: 'borderColor',
+				label: 'Border Color',
 				type: ESetting.COLOR_PICKER,
 			},
 		],

@@ -2,11 +2,11 @@ import { useEnhancedNode } from '@ws-ui/webform-editor';
 import cn from 'classnames';
 import { FC, useMemo } from 'react';
 
-import { IAnnotation, IBarProps } from './Bar.config';
+import { IAnnotation, IRangeBarProps } from './RangeBar.config';
 import ReactApexChart from 'react-apexcharts';
 import { ApexOptions } from 'apexcharts';
 
-const Bar: FC<IBarProps> = ({
+const Bar: FC<IRangeBarProps> = ({
 	displayLabels,
 	annotations,
 	chartColors,
@@ -17,7 +17,6 @@ const Bar: FC<IBarProps> = ({
 	xAxisTitle,
 	yAxisTitle,
 	strokeCurve,
-	chartType,
 	exportable,
 	zoomable,
 	titlePosition,
@@ -114,15 +113,11 @@ const Bar: FC<IBarProps> = ({
 		}
 	}
 	var annotationsObj = { yaxis: yaxis, xaxis: xaxis, points: points };
-	var datamultiplier = 1;
-	if (yAxisMax) {
-		datamultiplier = yAxisMax / 150;
-	}
 
 	const options: ApexOptions = useMemo(
 		() => ({
 			chart: {
-				type: chartType,
+				type: 'rangeBar',
 				zoom: {
 					enabled: zoomable,
 				},
@@ -164,7 +159,6 @@ const Bar: FC<IBarProps> = ({
 				},
 			},
 			xaxis: {
-				categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep'],
 				title: {
 					text: xAxisTitle,
 				},
@@ -188,7 +182,6 @@ const Bar: FC<IBarProps> = ({
 			zoomable,
 			exportable,
 			strokeCurve,
-			chartType,
 			annotations,
 			xAxisTitle,
 			yAxisTitle,
@@ -204,16 +197,44 @@ const Bar: FC<IBarProps> = ({
 		// Prevents unnecessary re-renders if no editor changes
 		() => [
 			{
-				name: 'Value 1',
-				data: Array.from({ length: 9 }, () =>
-					Math.floor(Math.random() * 150 * datamultiplier),
-				),
+				data: [
+					{
+						x: 'Team A',
+						y: [1, 5],
+					},
+					{
+						x: 'Team B',
+						y: [4, 6],
+					},
+					{
+						x: 'Team C',
+						y: [5, 8],
+					},
+					{
+						x: 'Team D',
+						y: [3, 11],
+					},
+				],
 			},
 			{
-				name: 'Value 2',
-				data: Array.from({ length: 9 }, () =>
-					Math.floor(Math.random() * 150 * datamultiplier),
-				),
+				data: [
+					{
+						x: 'Team A',
+						y: [2, 6],
+					},
+					{
+						x: 'Team B',
+						y: [1, 3],
+					},
+					{
+						x: 'Team C',
+						y: [7, 8],
+					},
+					{
+						x: 'Team D',
+						y: [5, 9],
+					},
+				],
 			},
 		],
 		[yAxisMax],
@@ -226,11 +247,7 @@ const Bar: FC<IBarProps> = ({
 
 	return (
 		<div ref={connect} style={style} className={cn(className, classNames)}>
-			<ReactApexChart
-				options={chart.options}
-				series={chart.series}
-				type={chart.options.chart?.type}
-			/>
+			<ReactApexChart options={chart.options} series={chart.series} type="rangeBar" />
 		</div>
 	);
 };

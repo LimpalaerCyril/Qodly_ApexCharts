@@ -2,11 +2,11 @@ import { useRenderer, useSources } from '@ws-ui/webform-editor';
 import cn from 'classnames';
 import { FC, useEffect, useState } from 'react';
 
-import { IAnnotation, IBarProps } from './Bar.config';
+import { IAnnotation, ICandlestickProps } from './Candlestick.config';
 import ReactApexChart from 'react-apexcharts';
 import { ApexOptions } from 'apexcharts';
 
-const Bar: FC<IBarProps> = ({
+const Candlestick: FC<ICandlestickProps> = ({
 	displayLabels,
 	chartColors,
 	annotations,
@@ -17,13 +17,11 @@ const Bar: FC<IBarProps> = ({
 	xAxisTitle,
 	yAxisTitle,
 	strokeCurve,
-	chartType,
 	exportable,
 	zoomable,
 	titlePosition,
 	legendPosition,
 	name,
-	orientation,
 	style,
 	className,
 	classNames = [],
@@ -130,61 +128,56 @@ const Bar: FC<IBarProps> = ({
 
 			const options: ApexOptions = {
 				chart: {
-					type: chartType,
+					type: 'candlestick',
 					zoom: {
-						enabled: datas.options.chart?.zoom?.enabled ?? zoomable,
+						enabled: datas.options?.chart?.zoom?.enabled ?? zoomable,
 					},
 					toolbar: {
 						tools: {
-							download: datas.options.chart?.toolbar?.tools?.download ?? exportable,
+							download: datas.options?.chart?.toolbar?.tools?.download ?? exportable,
 						},
-					},
-				},
-				plotOptions: {
-					bar: {
-						horizontal: orientation === 'horizontal',
 					},
 				},
 				colors: chartColorsArr,
 				annotations: {
-					yaxis: datas.options.annotations?.yaxis ?? annotationsObj.yaxis,
-					xaxis: datas.options.annotations?.xaxis ?? annotationsObj.xaxis,
-					points: datas.options.annotations?.points ?? annotationsObj.points,
+					yaxis: datas.options?.annotations?.yaxis ?? annotationsObj.yaxis,
+					xaxis: datas.options?.annotations?.xaxis ?? annotationsObj.xaxis,
+					points: datas.options?.annotations?.points ?? annotationsObj.points,
 				},
 				dataLabels: {
-					enabled: datas.options.dataLabels?.enabled ?? displayLabels,
+					enabled: datas.options?.dataLabels?.enabled ?? displayLabels,
 				},
 				legend: {
-					show: datas.options.legend?.show ?? showLegend,
-					position: datas.options.legend?.position ?? legendPos,
+					show: datas.options?.legend?.show ?? showLegend,
+					position: datas.options?.legend?.position ?? legendPos,
 				},
 				stroke: {
-					curve: datas.options.stroke?.curve ?? strokeCurve,
+					curve: datas.options?.stroke?.curve ?? strokeCurve,
 				},
 				title: {
-					text: datas.options.title?.text ?? name,
-					align: datas.options.title?.align ?? titlePosition,
+					text: datas.options?.title?.text ?? name,
+					align: datas.options?.title?.align ?? titlePosition,
 				},
 				grid: {
 					row: {
-						colors: datas.options.grid?.row?.colors ?? ['#f3f3f3', 'transparent'],
-						opacity: datas.options.grid?.row?.opacity ?? 0.5,
+						colors: datas.options?.grid?.row?.colors ?? ['#f3f3f3', 'transparent'],
+						opacity: datas.options?.grid?.row?.opacity ?? 0.5,
 					},
 				},
 				xaxis: {
-					categories: datas.options.xaxis?.categories,
+					type: 'category',
 					title: {
-						text: datas.options.xaxis?.title?.text ?? xAxisTitle,
+						text: datas.options?.xaxis?.title?.text ?? xAxisTitle,
 					},
-					tickAmount: datas.options.xaxis?.tickAmount ?? xAxisTickAmount,
+					tickAmount: datas.options?.xaxis?.tickAmount ?? xAxisTickAmount,
 				},
 				yaxis: {
 					title: {
-						text: datas.options.yaxis?.title?.text ?? yAxisTitle,
+						text: datas.options?.yaxis?.title?.text ?? yAxisTitle,
 					},
-					tickAmount: datas.options.xaxis?.tickAmount ?? yAxisTickAmount,
-					min: datas.options.yaxis?.min ?? yAxisMin,
-					max: datas.options.yaxis?.max ?? yAxisMax,
+					tickAmount: datas.options?.xaxis?.tickAmount ?? yAxisTickAmount,
+					min: datas.options?.yaxis?.min ?? yAxisMin,
+					max: datas.options?.yaxis?.max ?? yAxisMax,
 				},
 			};
 			var series: any[] = datas.series;
@@ -214,7 +207,7 @@ const Bar: FC<IBarProps> = ({
 			<ReactApexChart
 				options={chartData.options}
 				series={chartData.series}
-				type={chartData.options.chart?.type ?? 'bar'}
+				type="candlestick"
 			/>
 		</div>
 	);
@@ -231,4 +224,4 @@ function applyCoordType(type: IAnnotation['coordType'], value: string): string |
 	}
 }
 
-export default Bar;
+export default Candlestick;

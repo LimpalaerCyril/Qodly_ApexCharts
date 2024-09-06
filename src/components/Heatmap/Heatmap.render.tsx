@@ -2,28 +2,24 @@ import { useRenderer, useSources } from '@ws-ui/webform-editor';
 import cn from 'classnames';
 import { FC, useEffect, useState } from 'react';
 
-import { IAnnotation, IBarProps } from './Bar.config';
+import { IAnnotation, IHeatmapProps } from './Heatmap.config';
 import ReactApexChart from 'react-apexcharts';
 import { ApexOptions } from 'apexcharts';
 
-const Bar: FC<IBarProps> = ({
+const Heatmap: FC<IHeatmapProps> = ({
 	displayLabels,
-	chartColors,
+	chartColors = [],
 	annotations,
-	yAxisTickAmount,
-	xAxisTickAmount,
-	yAxisMin,
-	yAxisMax,
 	xAxisTitle,
 	yAxisTitle,
 	strokeCurve,
-	chartType,
 	exportable,
 	zoomable,
 	titlePosition,
 	legendPosition,
+	colorFlipper,
+	colorRanges,
 	name,
-	orientation,
 	style,
 	className,
 	classNames = [],
@@ -47,34 +43,13 @@ const Bar: FC<IBarProps> = ({
 			const legendPos: 'top' | 'bottom' | 'left' | 'right' = showLegend
 				? legendPosition!
 				: 'top';
-			let initialColors = [
-				'#FF4560',
-				'#008FFB',
-				'#00E396',
-				'#FEB019',
-				'#FF5828',
-				'#9E9E9E',
-				'#36B37E',
-				'#607D8B',
-				'#4BC0C0',
-				'#E91E63',
-				'#9C27B0',
-				'#673AB7',
-				'#3F51B5',
-				'#2196F3',
-				'#03A9F4',
-				'#00BCD4',
-				'#009688',
-				'#4CAF50',
-				'#8BC34A',
-				'#CDDC39',
-				'#FFEB3B',
-				'#FFC107',
-				'#FF9800',
-				'#FF5722',
-				'#795548',
-			];
-			const chartColorsArr = chartColors?.map((color) => color.color) ?? initialColors;
+			let initialColors = ['#008FFB'];
+			const chartColorsArr =
+				chartColors.length > 0
+					? chartColors?.map((color) =>
+							color.color.length > 7 ? color.color.substring(0, 7) : color.color,
+						)
+					: initialColors;
 			var yaxis: YAxisAnnotations[] = [];
 			var xaxis: XAxisAnnotations[] = [];
 			var points: PointAnnotations[] = [];
@@ -130,64 +105,75 @@ const Bar: FC<IBarProps> = ({
 
 			const options: ApexOptions = {
 				chart: {
-					type: chartType,
+					type: 'heatmap',
 					zoom: {
-						enabled: datas.options.chart?.zoom?.enabled ?? zoomable,
+						enabled: datas.options?.chart?.zoom?.enabled ?? zoomable,
 					},
 					toolbar: {
 						tools: {
-							download: datas.options.chart?.toolbar?.tools?.download ?? exportable,
+							download: datas.options?.chart?.toolbar?.tools?.download ?? exportable,
 						},
 					},
 				},
 				plotOptions: {
-					bar: {
-						horizontal: orientation === 'horizontal',
+					heatmap: {
+						colorScale: {
+							inverse:
+								datas.options?.plotOptions?.heatmap?.colorScale?.inverse ??
+								colorFlipper,
+							ranges:
+								datas.options?.plotOptions?.heatmap?.colorScale?.ranges ??
+								colorRanges?.map((color) => ({
+									from: color.from,
+									to: color.to,
+									color:
+										color.color.length > 7
+											? color.color.substring(0, 7)
+											: color.color,
+								})) ??
+								[],
+						},
 					},
 				},
 				colors: chartColorsArr,
 				annotations: {
-					yaxis: datas.options.annotations?.yaxis ?? annotationsObj.yaxis,
-					xaxis: datas.options.annotations?.xaxis ?? annotationsObj.xaxis,
-					points: datas.options.annotations?.points ?? annotationsObj.points,
+					yaxis: datas.options?.annotations?.yaxis ?? annotationsObj.yaxis,
+					xaxis: datas.options?.annotations?.xaxis ?? annotationsObj.xaxis,
+					points: datas.options?.annotations?.points ?? annotationsObj.points,
 				},
 				dataLabels: {
-					enabled: datas.options.dataLabels?.enabled ?? displayLabels,
+					enabled: datas.options?.dataLabels?.enabled ?? displayLabels,
 				},
 				legend: {
-					show: datas.options.legend?.show ?? showLegend,
-					position: datas.options.legend?.position ?? legendPos,
+					show: datas.options?.legend?.show ?? showLegend,
+					position: datas.options?.legend?.position ?? legendPos,
 				},
 				stroke: {
-					curve: datas.options.stroke?.curve ?? strokeCurve,
+					curve: datas.options?.stroke?.curve ?? strokeCurve,
 				},
 				title: {
-					text: datas.options.title?.text ?? name,
-					align: datas.options.title?.align ?? titlePosition,
+					text: datas.options?.title?.text ?? name,
+					align: datas.options?.title?.align ?? titlePosition,
 				},
 				grid: {
 					row: {
-						colors: datas.options.grid?.row?.colors ?? ['#f3f3f3', 'transparent'],
-						opacity: datas.options.grid?.row?.opacity ?? 0.5,
+						colors: datas.options?.grid?.row?.colors ?? ['#f3f3f3', 'transparent'],
+						opacity: datas.options?.grid?.row?.opacity ?? 0.5,
 					},
 				},
 				xaxis: {
-					categories: datas.options.xaxis?.categories,
+					type: 'category',
 					title: {
-						text: datas.options.xaxis?.title?.text ?? xAxisTitle,
+						text: datas.options?.xaxis?.title?.text ?? xAxisTitle,
 					},
-					tickAmount: datas.options.xaxis?.tickAmount ?? xAxisTickAmount,
 				},
 				yaxis: {
 					title: {
-						text: datas.options.yaxis?.title?.text ?? yAxisTitle,
+						text: datas.options?.yaxis?.title?.text ?? yAxisTitle,
 					},
-					tickAmount: datas.options.xaxis?.tickAmount ?? yAxisTickAmount,
-					min: datas.options.yaxis?.min ?? yAxisMin,
-					max: datas.options.yaxis?.max ?? yAxisMax,
 				},
 			};
-			var series: any[] = datas.series;
+			var series: any[] = datas.series ?? [];
 
 			var chart = {
 				options: options,
@@ -211,11 +197,7 @@ const Bar: FC<IBarProps> = ({
 
 	return (
 		<div ref={connect} style={style} className={cn(className, classNames)}>
-			<ReactApexChart
-				options={chartData.options}
-				series={chartData.series}
-				type={chartData.options.chart?.type ?? 'bar'}
-			/>
+			<ReactApexChart options={chartData.options} series={chartData.series} type="heatmap" />
 		</div>
 	);
 };
@@ -231,4 +213,4 @@ function applyCoordType(type: IAnnotation['coordType'], value: string): string |
 	}
 }
 
-export default Bar;
+export default Heatmap;

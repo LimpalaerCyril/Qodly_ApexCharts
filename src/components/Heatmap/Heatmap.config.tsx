@@ -1,12 +1,12 @@
 import { EComponentKind, T4DComponentConfig } from '@ws-ui/webform-editor';
 import { Settings } from '@ws-ui/webform-editor';
-import { FaChartPie } from 'react-icons/fa';
+import { RiFireFill } from 'react-icons/ri';
 
-import PieSettings, { BasicSettings } from './Pie.settings';
+import HeatmapSettings, { BasicSettings } from './Heatmap.settings';
 
 export default {
 	craft: {
-		displayName: 'Pie',
+		displayName: 'Heatmap',
 		kind: EComponentKind.BASIC,
 		props: {
 			name: '',
@@ -14,13 +14,13 @@ export default {
 			events: [],
 		},
 		related: {
-			settings: Settings(PieSettings, BasicSettings),
+			settings: Settings(HeatmapSettings, BasicSettings),
 		},
 	},
 	info: {
-		displayName: 'Pie',
+		displayName: 'Heatmap',
 		exposed: true,
-		icon: FaChartPie,
+		icon: RiFireFill,
 		events: [
 			{
 				label: 'On Click',
@@ -56,28 +56,51 @@ export default {
 		},
 	},
 	defaultProps: {
-		name: 'Qodly Pie Chart name',
+		name: 'Qodly Heatmap Chart name',
 		legendPosition: 'top',
 		titlePosition: 'center',
-		chartType: 'pie',
-		gradient: false,
-		displayLabels: true,
+		exportable: true,
+		zoomable: true,
+		displayLabels: false,
+		strokeCurve: 'straight',
+		colorFlipper: false,
 		style: {
 			width: '500px',
 		},
 	},
-} as T4DComponentConfig<IPieProps>;
+} as T4DComponentConfig<IHeatmapProps>;
 
-export interface IPieProps extends webforms.ComponentProps {
+export interface IHeatmapProps extends webforms.ComponentProps {
 	name?: string;
-	chartType?: 'pie' | 'donut';
-	chartColors?: IColor[];
-	gradient?: boolean;
+	annotations?: IAnnotation[];
+	chartColors: IColor[];
+	exportable?: boolean;
+	zoomable?: boolean;
 	displayLabels?: boolean;
+	strokeCurve?: 'straight' | 'smooth' | 'monotoneCubic' | 'stepline';
 	legendPosition?: 'top' | 'bottom' | 'left' | 'right' | 'hidden';
 	titlePosition?: 'center' | 'left' | 'right';
+	xAxisTitle?: string;
+	yAxisTitle?: string;
+	colorFlipper?: boolean;
+	colorRanges?: IColorRange[];
 }
 
 export interface IColor {
 	color: string;
+}
+
+export interface IColorRange extends IColor {
+	from: number;
+	to: number;
+}
+
+export interface IAnnotation {
+	text: string;
+	axis: 'x' | 'y' | 'point';
+	coordType: 'string' | 'number' | 'datetime';
+	coordFrom: string;
+	coordTo: string;
+	backgroundColor: string;
+	borderColor: string;
 }

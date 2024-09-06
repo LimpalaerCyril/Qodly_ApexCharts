@@ -1,12 +1,12 @@
 import { EComponentKind, T4DComponentConfig } from '@ws-ui/webform-editor';
 import { Settings } from '@ws-ui/webform-editor';
-import { FaChartPie } from 'react-icons/fa';
+import { MdOutlineCandlestickChart } from 'react-icons/md';
 
-import PieSettings, { BasicSettings } from './Pie.settings';
+import CandlestickSettings, { BasicSettings } from './Candlestick.settings';
 
 export default {
 	craft: {
-		displayName: 'Pie',
+		displayName: 'Candlestick',
 		kind: EComponentKind.BASIC,
 		props: {
 			name: '',
@@ -14,13 +14,13 @@ export default {
 			events: [],
 		},
 		related: {
-			settings: Settings(PieSettings, BasicSettings),
+			settings: Settings(CandlestickSettings, BasicSettings),
 		},
 	},
 	info: {
-		displayName: 'Pie',
+		displayName: 'Candlestick',
 		exposed: true,
-		icon: FaChartPie,
+		icon: MdOutlineCandlestickChart,
 		events: [
 			{
 				label: 'On Click',
@@ -56,28 +56,49 @@ export default {
 		},
 	},
 	defaultProps: {
-		name: 'Qodly Pie Chart name',
+		name: 'Qodly Candlestick Chart name',
 		legendPosition: 'top',
 		titlePosition: 'center',
-		chartType: 'pie',
-		gradient: false,
-		displayLabels: true,
+		exportable: true,
+		zoomable: true,
+		displayLabels: false,
+		strokeCurve: 'straight',
+		xAxisTickAmount: 12,
+		yAxisTickAmount: 8,
 		style: {
 			width: '500px',
 		},
 	},
-} as T4DComponentConfig<IPieProps>;
+} as T4DComponentConfig<ICandlestickProps>;
 
-export interface IPieProps extends webforms.ComponentProps {
+export interface ICandlestickProps extends webforms.ComponentProps {
 	name?: string;
-	chartType?: 'pie' | 'donut';
+	annotations?: IAnnotation[];
 	chartColors?: IColor[];
-	gradient?: boolean;
+	exportable?: boolean;
+	zoomable?: boolean;
 	displayLabels?: boolean;
+	strokeCurve?: 'straight' | 'smooth' | 'monotoneCubic' | 'stepline';
 	legendPosition?: 'top' | 'bottom' | 'left' | 'right' | 'hidden';
 	titlePosition?: 'center' | 'left' | 'right';
+	xAxisTitle?: string;
+	yAxisTitle?: string;
+	yAxisTickAmount?: number;
+	xAxisTickAmount?: number;
+	yAxisMin?: number;
+	yAxisMax?: number;
 }
 
 export interface IColor {
 	color: string;
+}
+
+export interface IAnnotation {
+	text: string;
+	axis: 'x' | 'y' | 'point';
+	coordType: 'string' | 'number' | 'datetime';
+	coordFrom: string;
+	coordTo: string;
+	backgroundColor: string;
+	borderColor: string;
 }

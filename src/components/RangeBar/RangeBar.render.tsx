@@ -2,11 +2,11 @@ import { useRenderer, useSources } from '@ws-ui/webform-editor';
 import cn from 'classnames';
 import { FC, useEffect, useState } from 'react';
 
-import { IAnnotation, IBarProps } from './Bar.config';
+import { IAnnotation, IRangeBarProps } from './RangeBar.config';
 import ReactApexChart from 'react-apexcharts';
 import { ApexOptions } from 'apexcharts';
 
-const Bar: FC<IBarProps> = ({
+const Bar: FC<IRangeBarProps> = ({
 	displayLabels,
 	chartColors,
 	annotations,
@@ -17,7 +17,6 @@ const Bar: FC<IBarProps> = ({
 	xAxisTitle,
 	yAxisTitle,
 	strokeCurve,
-	chartType,
 	exportable,
 	zoomable,
 	titlePosition,
@@ -130,7 +129,7 @@ const Bar: FC<IBarProps> = ({
 
 			const options: ApexOptions = {
 				chart: {
-					type: chartType,
+					type: 'rangeBar',
 					zoom: {
 						enabled: datas.options.chart?.zoom?.enabled ?? zoomable,
 					},
@@ -211,11 +210,7 @@ const Bar: FC<IBarProps> = ({
 
 	return (
 		<div ref={connect} style={style} className={cn(className, classNames)}>
-			<ReactApexChart
-				options={chartData.options}
-				series={chartData.series}
-				type={chartData.options.chart?.type ?? 'bar'}
-			/>
+			<ReactApexChart options={chartData.options} series={chartData.series} type="rangeBar" />
 		</div>
 	);
 };

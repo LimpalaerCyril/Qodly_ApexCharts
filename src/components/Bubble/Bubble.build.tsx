@@ -2,11 +2,11 @@ import { useEnhancedNode } from '@ws-ui/webform-editor';
 import cn from 'classnames';
 import { FC, useMemo } from 'react';
 
-import { IAnnotation, IBarProps } from './Bar.config';
+import { IAnnotation, IBubbleProps } from './Bubble.config';
 import ReactApexChart from 'react-apexcharts';
 import { ApexOptions } from 'apexcharts';
 
-const Bar: FC<IBarProps> = ({
+const Bubble: FC<IBubbleProps> = ({
 	displayLabels,
 	annotations,
 	chartColors,
@@ -17,12 +17,10 @@ const Bar: FC<IBarProps> = ({
 	xAxisTitle,
 	yAxisTitle,
 	strokeCurve,
-	chartType,
 	exportable,
 	zoomable,
 	titlePosition,
 	legendPosition,
-	orientation,
 	name,
 	style,
 	className,
@@ -65,6 +63,7 @@ const Bar: FC<IBarProps> = ({
 	var yaxis: YAxisAnnotations[] = [];
 	var xaxis: XAxisAnnotations[] = [];
 	var points: PointAnnotations[] = [];
+	// TODO: do we need it ?
 	for (const annotation of annotations || []) {
 		if (annotation.axis === 'y') {
 			yaxis.push({
@@ -114,15 +113,11 @@ const Bar: FC<IBarProps> = ({
 		}
 	}
 	var annotationsObj = { yaxis: yaxis, xaxis: xaxis, points: points };
-	var datamultiplier = 1;
-	if (yAxisMax) {
-		datamultiplier = yAxisMax / 150;
-	}
 
 	const options: ApexOptions = useMemo(
 		() => ({
 			chart: {
-				type: chartType,
+				type: 'bubble',
 				zoom: {
 					enabled: zoomable,
 				},
@@ -130,11 +125,6 @@ const Bar: FC<IBarProps> = ({
 					tools: {
 						download: exportable,
 					},
-				},
-			},
-			plotOptions: {
-				bar: {
-					horizontal: orientation === 'horizontal',
 				},
 			},
 			colors: chartColorsArr,
@@ -164,7 +154,7 @@ const Bar: FC<IBarProps> = ({
 				},
 			},
 			xaxis: {
-				categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep'],
+				type: 'category',
 				title: {
 					text: xAxisTitle,
 				},
@@ -182,13 +172,11 @@ const Bar: FC<IBarProps> = ({
 		[
 			legendPos,
 			name,
-			orientation,
 			showLegend,
 			titlePosition,
 			zoomable,
 			exportable,
 			strokeCurve,
-			chartType,
 			annotations,
 			xAxisTitle,
 			yAxisTitle,
@@ -204,19 +192,57 @@ const Bar: FC<IBarProps> = ({
 		// Prevents unnecessary re-renders if no editor changes
 		() => [
 			{
-				name: 'Value 1',
-				data: Array.from({ length: 9 }, () =>
-					Math.floor(Math.random() * 150 * datamultiplier),
-				),
+				name: 'Bubble1',
+				data: [
+					{ x: '2017-02-11', y: 30, z: 20 },
+					{ x: '2017-02-12', y: 40, z: 35 },
+					{ x: '2017-02-13', y: 20, z: 25 },
+					{ x: '2017-02-14', y: 50, z: 40 },
+					{ x: '2017-02-15', y: 60, z: 50 },
+					{ x: '2017-02-16', y: 15, z: 10 },
+					{ x: '2017-02-17', y: 35, z: 30 },
+					{ x: '2017-02-18', y: 45, z: 40 },
+					{ x: '2017-02-19', y: 25, z: 20 },
+					{ x: '2017-02-20', y: 55, z: 45 },
+					{ x: '2017-02-21', y: 65, z: 55 },
+					{ x: '2017-02-22', y: 18, z: 15 },
+					{ x: '2017-02-23', y: 38, z: 28 },
+					{ x: '2017-02-24', y: 48, z: 38 },
+					{ x: '2017-02-25', y: 28, z: 18 },
+					{ x: '2017-02-26', y: 58, z: 48 },
+					{ x: '2017-02-27', y: 68, z: 58 },
+					{ x: '2017-02-28', y: 22, z: 12 },
+					{ x: '2017-03-01', y: 42, z: 32 },
+					{ x: '2017-03-02', y: 52, z: 42 },
+				],
 			},
 			{
-				name: 'Value 2',
-				data: Array.from({ length: 9 }, () =>
-					Math.floor(Math.random() * 150 * datamultiplier),
-				),
+				name: 'Bubble2',
+				data: [
+					{ x: '2017-02-11', y: 12, z: 15 },
+					{ x: '2017-02-12', y: 25, z: 10 },
+					{ x: '2017-02-13', y: 45, z: 22 },
+					{ x: '2017-02-14', y: 33, z: 35 },
+					{ x: '2017-02-15', y: 56, z: 20 },
+					{ x: '2017-02-16', y: 15, z: 18 },
+					{ x: '2017-02-17', y: 60, z: 40 },
+					{ x: '2017-02-18', y: 38, z: 30 },
+					{ x: '2017-02-19', y: 50, z: 28 },
+					{ x: '2017-02-20', y: 22, z: 24 },
+					{ x: '2017-02-21', y: 47, z: 15 },
+					{ x: '2017-02-22', y: 62, z: 32 },
+					{ x: '2017-02-23', y: 19, z: 14 },
+					{ x: '2017-02-24', y: 28, z: 38 },
+					{ x: '2017-02-25', y: 34, z: 12 },
+					{ x: '2017-02-26', y: 53, z: 42 },
+					{ x: '2017-02-27', y: 26, z: 50 },
+					{ x: '2017-02-28', y: 48, z: 26 },
+					{ x: '2017-03-01', y: 29, z: 36 },
+					{ x: '2017-03-02', y: 39, z: 18 },
+				],
 			},
 		],
-		[yAxisMax],
+		[],
 	);
 
 	const chart = {
@@ -235,6 +261,7 @@ const Bar: FC<IBarProps> = ({
 	);
 };
 
+// todo: do we need this
 function applyCoordType(type: IAnnotation['coordType'], value: string): string | number {
 	switch (type) {
 		case 'string':
@@ -246,4 +273,4 @@ function applyCoordType(type: IAnnotation['coordType'], value: string): string |
 	}
 }
 
-export default Bar;
+export default Bubble;

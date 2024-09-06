@@ -2,28 +2,24 @@ import { useEnhancedNode } from '@ws-ui/webform-editor';
 import cn from 'classnames';
 import { FC, useMemo } from 'react';
 
-import { IAnnotation, IBarProps } from './Bar.config';
+import { IAnnotation, IHeatmapProps } from './Heatmap.config';
 import ReactApexChart from 'react-apexcharts';
 import { ApexOptions } from 'apexcharts';
 
-const Bar: FC<IBarProps> = ({
+const Heatmap: FC<IHeatmapProps> = ({
 	displayLabels,
 	annotations,
-	chartColors,
-	xAxisTickAmount,
-	yAxisTickAmount,
-	yAxisMin,
-	yAxisMax,
+	chartColors = [],
 	xAxisTitle,
 	yAxisTitle,
 	strokeCurve,
-	chartType,
 	exportable,
 	zoomable,
 	titlePosition,
 	legendPosition,
-	orientation,
 	name,
+	colorFlipper,
+	colorRanges,
 	style,
 	className,
 	classNames = [],
@@ -34,37 +30,17 @@ const Bar: FC<IBarProps> = ({
 
 	const showLegend = legendPosition !== 'hidden';
 	const legendPos: 'top' | 'bottom' | 'left' | 'right' = showLegend ? legendPosition! : 'top';
-	let initialColors = [
-		'#FF4560',
-		'#008FFB',
-		'#00E396',
-		'#FEB019',
-		'#FF5828',
-		'#9E9E9E',
-		'#36B37E',
-		'#607D8B',
-		'#4BC0C0',
-		'#E91E63',
-		'#9C27B0',
-		'#673AB7',
-		'#3F51B5',
-		'#2196F3',
-		'#03A9F4',
-		'#00BCD4',
-		'#009688',
-		'#4CAF50',
-		'#8BC34A',
-		'#CDDC39',
-		'#FFEB3B',
-		'#FFC107',
-		'#FF9800',
-		'#FF5722',
-		'#795548',
-	];
-	const chartColorsArr = chartColors?.map((color) => color.color) ?? initialColors;
+	let initialColors = ['#008FFB'];
+	const chartColorsArr =
+		chartColors.length > 0
+			? chartColors?.map((color) =>
+					color.color.length > 7 ? color.color.substring(0, 7) : color.color,
+				)
+			: initialColors;
 	var yaxis: YAxisAnnotations[] = [];
 	var xaxis: XAxisAnnotations[] = [];
 	var points: PointAnnotations[] = [];
+	// TODO: do we need it ?
 	for (const annotation of annotations || []) {
 		if (annotation.axis === 'y') {
 			yaxis.push({
@@ -114,15 +90,11 @@ const Bar: FC<IBarProps> = ({
 		}
 	}
 	var annotationsObj = { yaxis: yaxis, xaxis: xaxis, points: points };
-	var datamultiplier = 1;
-	if (yAxisMax) {
-		datamultiplier = yAxisMax / 150;
-	}
 
 	const options: ApexOptions = useMemo(
 		() => ({
 			chart: {
-				type: chartType,
+				type: 'heatmap',
 				zoom: {
 					enabled: zoomable,
 				},
@@ -133,8 +105,19 @@ const Bar: FC<IBarProps> = ({
 				},
 			},
 			plotOptions: {
-				bar: {
-					horizontal: orientation === 'horizontal',
+				heatmap: {
+					colorScale: {
+						inverse: colorFlipper,
+						ranges:
+							colorRanges?.map((color) => ({
+								from: color.from,
+								to: color.to,
+								color:
+									color.color.length > 7
+										? color.color.substring(0, 7)
+										: color.color,
+							})) ?? [],
+					},
 				},
 			},
 			colors: chartColorsArr,
@@ -164,39 +147,32 @@ const Bar: FC<IBarProps> = ({
 				},
 			},
 			xaxis: {
-				categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep'],
+				type: 'category',
 				title: {
 					text: xAxisTitle,
 				},
-				tickAmount: xAxisTickAmount,
 			},
 			yaxis: {
 				title: {
 					text: yAxisTitle,
 				},
-				tickAmount: yAxisTickAmount,
-				min: yAxisMin,
-				max: yAxisMax,
 			},
 		}),
 		[
 			legendPos,
 			name,
-			orientation,
+			chartColorsArr,
 			showLegend,
 			titlePosition,
 			zoomable,
 			exportable,
 			strokeCurve,
-			chartType,
 			annotations,
 			xAxisTitle,
 			yAxisTitle,
 			displayLabels,
-			yAxisMin,
-			yAxisMax,
-			xAxisTickAmount,
-			yAxisTickAmount,
+			colorFlipper,
+			colorRanges,
 		],
 	);
 
@@ -204,19 +180,58 @@ const Bar: FC<IBarProps> = ({
 		// Prevents unnecessary re-renders if no editor changes
 		() => [
 			{
-				name: 'Value 1',
-				data: Array.from({ length: 9 }, () =>
-					Math.floor(Math.random() * 150 * datamultiplier),
-				),
+				name: 'Metric1',
+				data: [
+					{ x: 'Jan', y: 30 },
+					{ x: 'Feb', y: 20 },
+					{ x: 'Mar', y: 50 },
+					{ x: 'Apr', y: 60 },
+					{ x: 'May', y: 40 },
+					{ x: 'Jun', y: 70 },
+					{ x: 'Jul', y: 55 },
+					{ x: 'Aug', y: 80 },
+					{ x: 'Sep', y: 30 },
+					{ x: 'Oct', y: 75 },
+					{ x: 'Nov', y: 85 },
+					{ x: 'Dec', y: 45 },
+				],
 			},
 			{
-				name: 'Value 2',
-				data: Array.from({ length: 9 }, () =>
-					Math.floor(Math.random() * 150 * datamultiplier),
-				),
+				name: 'Metric2',
+				data: [
+					{ x: 'Jan', y: 40 },
+					{ x: 'Feb', y: 30 },
+					{ x: 'Mar', y: 60 },
+					{ x: 'Apr', y: 20 },
+					{ x: 'May', y: 50 },
+					{ x: 'Jun', y: 80 },
+					{ x: 'Jul', y: 45 },
+					{ x: 'Aug', y: 65 },
+					{ x: 'Sep', y: 70 },
+					{ x: 'Oct', y: 60 },
+					{ x: 'Nov', y: 40 },
+					{ x: 'Dec', y: 75 },
+				],
+			},
+			{
+				name: 'Metric3',
+				data: [
+					{ x: 'Jan', y: 20 },
+					{ x: 'Feb', y: 40 },
+					{ x: 'Mar', y: 30 },
+					{ x: 'Apr', y: 70 },
+					{ x: 'May', y: 60 },
+					{ x: 'Jun', y: 90 },
+					{ x: 'Jul', y: 85 },
+					{ x: 'Aug', y: 95 },
+					{ x: 'Sep', y: 40 },
+					{ x: 'Oct', y: 55 },
+					{ x: 'Nov', y: 65 },
+					{ x: 'Dec', y: 50 },
+				],
 			},
 		],
-		[yAxisMax],
+		[],
 	);
 
 	const chart = {
@@ -235,6 +250,7 @@ const Bar: FC<IBarProps> = ({
 	);
 };
 
+// todo: do we need this
 function applyCoordType(type: IAnnotation['coordType'], value: string): string | number {
 	switch (type) {
 		case 'string':
@@ -246,4 +262,4 @@ function applyCoordType(type: IAnnotation['coordType'], value: string): string |
 	}
 }
 
-export default Bar;
+export default Heatmap;

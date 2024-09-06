@@ -2,11 +2,11 @@ import { useEnhancedNode } from '@ws-ui/webform-editor';
 import cn from 'classnames';
 import { FC, useMemo } from 'react';
 
-import { IAnnotation, IBarProps } from './Bar.config';
+import { IAnnotation, ICandlestickProps } from './Candlestick.config';
 import ReactApexChart from 'react-apexcharts';
 import { ApexOptions } from 'apexcharts';
 
-const Bar: FC<IBarProps> = ({
+const Candlestick: FC<ICandlestickProps> = ({
 	displayLabels,
 	annotations,
 	chartColors,
@@ -17,12 +17,10 @@ const Bar: FC<IBarProps> = ({
 	xAxisTitle,
 	yAxisTitle,
 	strokeCurve,
-	chartType,
 	exportable,
 	zoomable,
 	titlePosition,
 	legendPosition,
-	orientation,
 	name,
 	style,
 	className,
@@ -65,6 +63,7 @@ const Bar: FC<IBarProps> = ({
 	var yaxis: YAxisAnnotations[] = [];
 	var xaxis: XAxisAnnotations[] = [];
 	var points: PointAnnotations[] = [];
+	// TODO: do we need it ?
 	for (const annotation of annotations || []) {
 		if (annotation.axis === 'y') {
 			yaxis.push({
@@ -114,15 +113,11 @@ const Bar: FC<IBarProps> = ({
 		}
 	}
 	var annotationsObj = { yaxis: yaxis, xaxis: xaxis, points: points };
-	var datamultiplier = 1;
-	if (yAxisMax) {
-		datamultiplier = yAxisMax / 150;
-	}
 
 	const options: ApexOptions = useMemo(
 		() => ({
 			chart: {
-				type: chartType,
+				type: 'candlestick',
 				zoom: {
 					enabled: zoomable,
 				},
@@ -130,11 +125,6 @@ const Bar: FC<IBarProps> = ({
 					tools: {
 						download: exportable,
 					},
-				},
-			},
-			plotOptions: {
-				bar: {
-					horizontal: orientation === 'horizontal',
 				},
 			},
 			colors: chartColorsArr,
@@ -164,7 +154,7 @@ const Bar: FC<IBarProps> = ({
 				},
 			},
 			xaxis: {
-				categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep'],
+				type: 'category',
 				title: {
 					text: xAxisTitle,
 				},
@@ -182,13 +172,11 @@ const Bar: FC<IBarProps> = ({
 		[
 			legendPos,
 			name,
-			orientation,
 			showLegend,
 			titlePosition,
 			zoomable,
 			exportable,
 			strokeCurve,
-			chartType,
 			annotations,
 			xAxisTitle,
 			yAxisTitle,
@@ -204,19 +192,71 @@ const Bar: FC<IBarProps> = ({
 		// Prevents unnecessary re-renders if no editor changes
 		() => [
 			{
-				name: 'Value 1',
-				data: Array.from({ length: 9 }, () =>
-					Math.floor(Math.random() * 150 * datamultiplier),
-				),
-			},
-			{
-				name: 'Value 2',
-				data: Array.from({ length: 9 }, () =>
-					Math.floor(Math.random() * 150 * datamultiplier),
-				),
+				data: [
+					{
+						x: '2024-08-01',
+						y: [6629.81, 6650.5, 6623.04, 6633.33],
+					},
+					{
+						x: '2024-08-02',
+						y: [6632.01, 6643.59, 6620, 6630.11],
+					},
+					{
+						x: '2024-08-03',
+						y: [6630.71, 6648.95, 6623.34, 6635.65],
+					},
+					{
+						x: '2024-08-04',
+						y: [6635.65, 6651, 6629.67, 6638.24],
+					},
+					{
+						x: '2024-08-05',
+						y: [6638.24, 6640, 6620, 6624.47],
+					},
+					{
+						x: '2024-08-06',
+						y: [6624.53, 6636.03, 6621.68, 6624.31],
+					},
+					{
+						x: '2024-08-07',
+						y: [6624.61, 6632.2, 6617, 6626.02],
+					},
+					{
+						x: '2024-08-08',
+						y: [6627, 6627.62, 6584.22, 6603.02],
+					},
+					{
+						x: '2024-08-09',
+						y: [6605, 6608.03, 6598.95, 6604.01],
+					},
+					{
+						x: '2024-08-10',
+						y: [6604.5, 6614.4, 6602.26, 6608.02],
+					},
+					{
+						x: '2024-08-11',
+						y: [6608.02, 6610.68, 6601.99, 6608.91],
+					},
+					{
+						x: '2024-08-12',
+						y: [6608.91, 6618.99, 6608.01, 6612],
+					},
+					{
+						x: '2024-08-13',
+						y: [6612, 6615.13, 6605.09, 6612],
+					},
+					{
+						x: '2024-08-14',
+						y: [6612, 6624.12, 6608.43, 6622.95],
+					},
+					{
+						x: '2024-08-15',
+						y: [6623.91, 6623.91, 6615, 6615.67],
+					},
+				],
 			},
 		],
-		[yAxisMax],
+		[],
 	);
 
 	const chart = {
@@ -235,6 +275,7 @@ const Bar: FC<IBarProps> = ({
 	);
 };
 
+// todo: do we need this
 function applyCoordType(type: IAnnotation['coordType'], value: string): string | number {
 	switch (type) {
 		case 'string':
@@ -246,4 +287,4 @@ function applyCoordType(type: IAnnotation['coordType'], value: string): string |
 	}
 }
 
-export default Bar;
+export default Candlestick;
