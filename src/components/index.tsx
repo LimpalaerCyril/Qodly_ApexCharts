@@ -7,6 +7,7 @@ import Line from './Line';
 import Bubble from './Bubble';
 import Candlestick from './Candlestick';
 import Heatmap from './Heatmap';
+import RangeBar from './RangeBar';
 
 export default {
 	// components
@@ -18,4 +19,5 @@ export default {
 	Bubble,
 	Candlestick,
 	Heatmap,
+	RangeBar,
 };
