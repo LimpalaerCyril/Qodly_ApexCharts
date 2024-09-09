@@ -8,6 +8,7 @@ import Bubble from './Bubble';
 import Candlestick from './Candlestick';
 import Heatmap from './Heatmap';
 import RangeBar from './RangeBar';
+import Polar from './Polar';
 
 export default {
 	// components
@@ -20,4 +21,5 @@ export default {
 	Candlestick,
 	Heatmap,
 	RangeBar,
+	Polar,
 };
