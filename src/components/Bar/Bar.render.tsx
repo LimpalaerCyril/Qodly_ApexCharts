@@ -23,6 +23,7 @@ const Bar: FC<IBarProps> = ({
 	titlePosition,
 	legendPosition,
 	name,
+	stacked,
 	orientation,
 	style,
 	className,
@@ -139,6 +140,8 @@ const Bar: FC<IBarProps> = ({
 							download: datas.options.chart?.toolbar?.tools?.download ?? exportable,
 						},
 					},
+					stacked: datas.options.chart?.stacked ?? stacked,
+					stackType: datas.options.chart?.stackType ?? 'normal',
 				},
 				plotOptions: {
 					bar: {

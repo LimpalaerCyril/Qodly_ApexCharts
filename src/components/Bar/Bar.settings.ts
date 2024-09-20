@@ -50,17 +50,12 @@ const commonSettings: TSetting[] = [
 			{ value: 'hidden', icon: CgShortcut },
 		],
 	},
-	/*{
-    key: 'chartType',
-    label: 'Chart Type',
-    type: ESetting.SELECT,
-    defaultValue: 'bar',
-    options: [
-      { value: 'bar', label: 'Bar' },
-      { value: 'line', label: 'Line' },
-      { value: 'area', label: 'Area' },
-    ],
-  },*/
+	{
+		key: 'stacked',
+		label: 'Stacked',
+		type: ESetting.CHECKBOX,
+		defaultValue: false,
+	},
 	{
 		key: 'xAxisTitle',
 		label: 'X Axis Title',

@@ -74,7 +74,6 @@ export interface IPolarProps extends webforms.ComponentProps {
 	displayLabels?: boolean;
 	legendPosition?: 'top' | 'bottom' | 'left' | 'right' | 'hidden';
 	titlePosition?: 'center' | 'left' | 'right';
-	yAxisTitle?: string;
 	yAxisTickAmount?: number;
 	yAxisMin?: number;
 	yAxisMax?: number;

@@ -12,7 +12,6 @@ const Polar: FC<IPolarProps> = ({
 	chartColors,
 	yAxisMin,
 	yAxisMax,
-	yAxisTitle,
 	titlePosition,
 	legendPosition,
 	name,
@@ -82,15 +81,21 @@ const Polar: FC<IPolarProps> = ({
 				},
 			},
 			yaxis: {
-				title: {
-					text: yAxisTitle,
-				},
 				tickAmount: yAxisTickAmount,
 				min: yAxisMin,
 				max: yAxisMax,
 			},
 		}),
-		[legendPos, name, showLegend, titlePosition, displayLabels, yAxisMin, yAxisMax, yAxisTitle],
+		[
+			legendPos,
+			name,
+			showLegend,
+			titlePosition,
+			displayLabels,
+			yAxisMin,
+			yAxisMax,
+			yAxisTickAmount,
+		],
 	);
 
 	const series = [14, 23, 21, 17, 15];

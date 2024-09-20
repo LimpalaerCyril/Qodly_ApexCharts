@@ -179,6 +179,27 @@ const Bubble: FC<IBubbleProps> = ({
 					min: datas.options?.yaxis?.min ?? yAxisMin,
 					max: datas.options?.yaxis?.max ?? yAxisMax,
 				},
+				/* POC for custom tooltip
+				tooltip: {
+					// TODO:
+					custom: ({ seriesIndex, dataPointIndex, w }) => {
+						const dataPoint = w.config.series[seriesIndex].data[dataPointIndex];
+						if (dataPoint.name) {
+							return `<div class="tooltip-custom">
+									<strong>${dataPoint.name}</strong><br>
+									x: ${dataPoint.x}<br>
+									y: ${dataPoint.y}<br>
+									z: ${dataPoint.z}
+								</div>`;
+						} else {
+							return `<div class="tooltip-default">
+									x: ${dataPoint.x}<br>
+									y: ${dataPoint.y}<br>
+									z: ${dataPoint.z}
+								</div>`;
+						}
+					},
+				},*/
 			};
 			var series: any[] = datas.series;
 

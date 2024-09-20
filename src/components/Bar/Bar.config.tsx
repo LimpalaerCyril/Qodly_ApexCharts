@@ -61,6 +61,7 @@ export default {
 		legendPosition: 'top',
 		titlePosition: 'center',
 		chartType: 'bar',
+		stacked: false,
 		exportable: true,
 		zoomable: true,
 		displayLabels: true,
@@ -75,6 +76,7 @@ export default {
 
 export interface IBarProps extends webforms.ComponentProps {
 	name?: string;
+	stacked?: boolean;
 	orientation?: 'vertical' | 'horizontal';
 	chartType?: 'bar' | 'line' | 'area';
 	annotations?: IAnnotation[];

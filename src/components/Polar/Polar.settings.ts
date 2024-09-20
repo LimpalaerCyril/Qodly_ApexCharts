@@ -41,11 +41,6 @@ const commonSettings: TSetting[] = [
 		],
 	},
 	{
-		key: 'yAxisTitle',
-		label: 'Y Axis Title',
-		type: ESetting.TEXT_FIELD,
-	},
-	{
 		key: 'yAxisTickAmount',
 		label: 'Y Axis tick amount',
 		type: ESetting.NUMBER_FIELD,

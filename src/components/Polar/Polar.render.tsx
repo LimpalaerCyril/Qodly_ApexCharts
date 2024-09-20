@@ -12,7 +12,6 @@ const Polar: FC<IPolarProps> = ({
 	yAxisTickAmount,
 	yAxisMin,
 	yAxisMax,
-	yAxisTitle,
 	titlePosition,
 	legendPosition,
 	name,
@@ -73,6 +72,7 @@ const Polar: FC<IPolarProps> = ({
 					type: 'polarArea',
 				},
 				colors: chartColorsArr,
+				labels: datas.options.labels ?? [],
 				dataLabels: {
 					enabled: datas.options.dataLabels?.enabled ?? displayLabels,
 				},
@@ -94,9 +94,6 @@ const Polar: FC<IPolarProps> = ({
 					},
 				},
 				yaxis: {
-					title: {
-						text: datas.options.yaxis?.title?.text ?? yAxisTitle,
-					},
 					tickAmount: datas.options.yaxis?.tickAmount ?? yAxisTickAmount,
 					min: datas.options.yaxis?.min ?? yAxisMin,
 					max: datas.options.yaxis?.max ?? yAxisMax,
