@@ -24,6 +24,7 @@ const Bar: FC<IBarProps> = ({
 	legendPosition,
 	orientation,
 	name,
+	stacked,
 	style,
 	className,
 	classNames = [],
@@ -131,6 +132,8 @@ const Bar: FC<IBarProps> = ({
 						download: exportable,
 					},
 				},
+				stacked: stacked,
+				stackType: 'normal',
 			},
 			plotOptions: {
 				bar: {
@@ -181,6 +184,7 @@ const Bar: FC<IBarProps> = ({
 		}),
 		[
 			legendPos,
+			stacked,
 			name,
 			orientation,
 			showLegend,

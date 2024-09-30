@@ -1,12 +1,12 @@
 import { EComponentKind, T4DComponentConfig } from '@ws-ui/webform-editor';
 import { Settings } from '@ws-ui/webform-editor';
-import { FaChartBar } from 'react-icons/fa';
+import { PiChartPolar } from 'react-icons/pi';
 
-import BarSettings, { BasicSettings } from './Bar.settings';
+import AreaSettings, { BasicSettings } from './Polar.settings';
 
 export default {
 	craft: {
-		displayName: 'Bar',
+		displayName: 'Polar',
 		kind: EComponentKind.BASIC,
 		props: {
 			name: '',
@@ -14,13 +14,13 @@ export default {
 			events: [],
 		},
 		related: {
-			settings: Settings(BarSettings, BasicSettings),
+			settings: Settings(AreaSettings, BasicSettings),
 		},
 	},
 	info: {
-		displayName: 'Bar',
+		displayName: 'Polar',
 		exposed: true,
-		icon: FaChartBar,
+		icon: PiChartPolar,
 		events: [
 			{
 				label: 'On Click',
@@ -56,41 +56,25 @@ export default {
 		},
 	},
 	defaultProps: {
-		name: 'Qodly Bar Chart name',
-		orientation: 'vertical',
+		name: 'Qodly Area Chart name',
 		legendPosition: 'top',
 		titlePosition: 'center',
-		chartType: 'bar',
-		stacked: false,
-		exportable: true,
-		zoomable: true,
 		displayLabels: true,
-		strokeCurve: 'straight',
-		xAxisTickAmount: 12,
 		yAxisTickAmount: 8,
 		style: {
 			width: '500px',
 		},
 	},
-} as T4DComponentConfig<IBarProps>;
+} as T4DComponentConfig<IPolarProps>;
 
-export interface IBarProps extends webforms.ComponentProps {
+export interface IPolarProps extends webforms.ComponentProps {
 	name?: string;
-	stacked?: boolean;
-	orientation?: 'vertical' | 'horizontal';
-	chartType?: 'bar' | 'line' | 'area';
 	annotations?: IAnnotation[];
 	chartColors?: IColor[];
-	exportable?: boolean;
-	zoomable?: boolean;
 	displayLabels?: boolean;
-	strokeCurve?: 'straight' | 'smooth' | 'monotoneCubic' | 'stepline';
 	legendPosition?: 'top' | 'bottom' | 'left' | 'right' | 'hidden';
 	titlePosition?: 'center' | 'left' | 'right';
-	xAxisTitle?: string;
-	yAxisTitle?: string;
 	yAxisTickAmount?: number;
-	xAxisTickAmount?: number;
 	yAxisMin?: number;
 	yAxisMax?: number;
 }
