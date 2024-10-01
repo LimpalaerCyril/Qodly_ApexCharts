@@ -16,7 +16,6 @@ const Bubble: FC<IBubbleProps> = ({
 	yAxisMax,
 	xAxisTitle,
 	yAxisTitle,
-	strokeCurve,
 	exportable,
 	zoomable,
 	titlePosition,
@@ -150,9 +149,6 @@ const Bubble: FC<IBubbleProps> = ({
 				legend: {
 					show: datas.options?.legend?.show ?? showLegend,
 					position: datas.options?.legend?.position ?? legendPos,
-				},
-				stroke: {
-					curve: datas.options?.stroke?.curve ?? strokeCurve,
 				},
 				title: {
 					text: datas.options?.title?.text ?? name,

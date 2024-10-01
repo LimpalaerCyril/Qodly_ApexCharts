@@ -46,11 +46,6 @@ const commonSettings: TSetting[] = [
 		type: ESetting.NUMBER_FIELD,
 	},
 	{
-		key: 'yAxisMin',
-		label: 'Y Axis min value',
-		type: ESetting.NUMBER_FIELD,
-	},
-	{
 		key: 'yAxisMax',
 		label: 'Y Axis max value',
 		type: ESetting.NUMBER_FIELD,

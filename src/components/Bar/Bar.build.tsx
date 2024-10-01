@@ -2,7 +2,7 @@ import { useEnhancedNode } from '@ws-ui/webform-editor';
 import cn from 'classnames';
 import { FC, useMemo } from 'react';
 
-import { IAnnotation, IBarProps } from './Bar.config';
+import { IBarProps } from './Bar.config';
 import ReactApexChart from 'react-apexcharts';
 import { ApexOptions } from 'apexcharts';
 
@@ -16,10 +16,7 @@ const Bar: FC<IBarProps> = ({
 	yAxisMax,
 	xAxisTitle,
 	yAxisTitle,
-	strokeCurve,
-	chartType,
 	exportable,
-	zoomable,
 	titlePosition,
 	legendPosition,
 	orientation,
@@ -66,54 +63,18 @@ const Bar: FC<IBarProps> = ({
 	var yaxis: YAxisAnnotations[] = [];
 	var xaxis: XAxisAnnotations[] = [];
 	var points: PointAnnotations[] = [];
-	for (const annotation of annotations || []) {
-		if (annotation.axis === 'y') {
-			yaxis.push({
-				y: applyCoordType(annotation.coordType, annotation.coordFrom),
-				y2: applyCoordType(annotation.coordType, annotation.coordTo),
-				borderColor: annotation.borderColor,
-				fillColor: annotation.backgroundColor,
-				label: {
-					text: annotation.text,
-					style: {
-						color: '#fff',
-						background: annotation.backgroundColor,
-					},
-				},
-			});
-		} else if (annotation.axis === 'x') {
-			xaxis.push({
-				x: applyCoordType(annotation.coordType, annotation.coordFrom),
-				x2: applyCoordType(annotation.coordType, annotation.coordTo),
-				borderColor: annotation.borderColor,
-				fillColor: annotation.backgroundColor,
-				label: {
-					text: annotation.text,
-					style: {
-						color: '#fff',
-						background: annotation.backgroundColor,
-					},
-				},
-			});
-		} else if (annotation.axis === 'point') {
-			points.push({
-				x: applyCoordType(annotation.coordType, annotation.coordFrom),
-				y: parseFloat(annotation.coordTo),
-				marker: {
-					size: 4,
-					fillColor: annotation.backgroundColor,
-					strokeColor: annotation.borderColor,
-				},
-				label: {
-					text: annotation.text,
-					style: {
-						color: '#fff',
-						background: annotation.backgroundColor,
-					},
-				},
-			});
-		}
+
+	//since data in build is fixed
+	if (annotations && annotations.length > 0) {
+		yaxis.push({
+			y: '70',
+			y2: '90',
+			label: {
+				text: 'Annotation',
+			},
+		});
 	}
+
 	var annotationsObj = { yaxis: yaxis, xaxis: xaxis, points: points };
 	var datamultiplier = 1;
 	if (yAxisMax) {
@@ -123,10 +84,7 @@ const Bar: FC<IBarProps> = ({
 	const options: ApexOptions = useMemo(
 		() => ({
 			chart: {
-				type: chartType,
-				zoom: {
-					enabled: zoomable,
-				},
+				type: 'bar',
 				toolbar: {
 					tools: {
 						download: exportable,
@@ -152,9 +110,6 @@ const Bar: FC<IBarProps> = ({
 			legend: {
 				show: showLegend,
 				position: legendPos,
-			},
-			stroke: {
-				curve: strokeCurve,
 			},
 			title: {
 				text: name,
@@ -189,10 +144,7 @@ const Bar: FC<IBarProps> = ({
 			orientation,
 			showLegend,
 			titlePosition,
-			zoomable,
 			exportable,
-			strokeCurve,
-			chartType,
 			annotations,
 			xAxisTitle,
 			yAxisTitle,
@@ -201,6 +153,7 @@ const Bar: FC<IBarProps> = ({
 			yAxisMax,
 			xAxisTickAmount,
 			yAxisTickAmount,
+			chartColorsArr,
 		],
 	);
 
@@ -238,16 +191,5 @@ const Bar: FC<IBarProps> = ({
 		</div>
 	);
 };
-
-function applyCoordType(type: IAnnotation['coordType'], value: string): string | number {
-	switch (type) {
-		case 'string':
-			return value;
-		case 'number':
-			return parseFloat(value);
-		case 'datetime':
-			return new Date(value).getTime();
-	}
-}
 
 export default Bar;

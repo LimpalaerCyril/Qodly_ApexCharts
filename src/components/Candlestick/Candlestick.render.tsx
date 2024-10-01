@@ -16,11 +16,9 @@ const Candlestick: FC<ICandlestickProps> = ({
 	yAxisMax,
 	xAxisTitle,
 	yAxisTitle,
-	strokeCurve,
 	exportable,
 	zoomable,
 	titlePosition,
-	legendPosition,
 	name,
 	style,
 	className,
@@ -41,10 +39,6 @@ const Candlestick: FC<ICandlestickProps> = ({
 			if (typeof v === 'string') datas = JSON.parse(v);
 			else datas = JSON.parse(JSON.stringify(v));
 
-			const showLegend = legendPosition !== 'hidden';
-			const legendPos: 'top' | 'bottom' | 'left' | 'right' = showLegend
-				? legendPosition!
-				: 'top';
 			let initialColors = [
 				'#FF4560',
 				'#008FFB',
@@ -138,7 +132,15 @@ const Candlestick: FC<ICandlestickProps> = ({
 						},
 					},
 				},
-				colors: chartColorsArr,
+				// colors: chartColorsArr, //NOT WORKING
+				plotOptions: {
+					candlestick: {
+						colors: {
+							upward: chartColorsArr[0],
+							downward: chartColorsArr[1],
+						},
+					},
+				},
 				annotations: {
 					yaxis: datas.options?.annotations?.yaxis ?? annotationsObj.yaxis,
 					xaxis: datas.options?.annotations?.xaxis ?? annotationsObj.xaxis,
@@ -146,13 +148,6 @@ const Candlestick: FC<ICandlestickProps> = ({
 				},
 				dataLabels: {
 					enabled: datas.options?.dataLabels?.enabled ?? displayLabels,
-				},
-				legend: {
-					show: datas.options?.legend?.show ?? showLegend,
-					position: datas.options?.legend?.position ?? legendPos,
-				},
-				stroke: {
-					curve: datas.options?.stroke?.curve ?? strokeCurve,
 				},
 				title: {
 					text: datas.options?.title?.text ?? name,

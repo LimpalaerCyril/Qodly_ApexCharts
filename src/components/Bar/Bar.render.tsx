@@ -16,10 +16,7 @@ const Bar: FC<IBarProps> = ({
 	yAxisMax,
 	xAxisTitle,
 	yAxisTitle,
-	strokeCurve,
-	chartType,
 	exportable,
-	zoomable,
 	titlePosition,
 	legendPosition,
 	name,
@@ -131,10 +128,7 @@ const Bar: FC<IBarProps> = ({
 
 			const options: ApexOptions = {
 				chart: {
-					type: chartType,
-					zoom: {
-						enabled: datas.options.chart?.zoom?.enabled ?? zoomable,
-					},
+					type: 'bar',
 					toolbar: {
 						tools: {
 							download: datas.options.chart?.toolbar?.tools?.download ?? exportable,
@@ -160,9 +154,6 @@ const Bar: FC<IBarProps> = ({
 				legend: {
 					show: datas.options.legend?.show ?? showLegend,
 					position: datas.options.legend?.position ?? legendPos,
-				},
-				stroke: {
-					curve: datas.options.stroke?.curve ?? strokeCurve,
 				},
 				title: {
 					text: datas.options.title?.text ?? name,

@@ -2,21 +2,17 @@ import { useEnhancedNode } from '@ws-ui/webform-editor';
 import cn from 'classnames';
 import { FC, useMemo } from 'react';
 
-import { IAnnotation, IHeatmapProps } from './Heatmap.config';
+import { IHeatmapProps } from './Heatmap.config';
 import ReactApexChart from 'react-apexcharts';
 import { ApexOptions } from 'apexcharts';
 
 const Heatmap: FC<IHeatmapProps> = ({
 	displayLabels,
-	annotations,
 	chartColors = [],
 	xAxisTitle,
 	yAxisTitle,
-	strokeCurve,
 	exportable,
-	zoomable,
 	titlePosition,
-	legendPosition,
 	name,
 	colorFlipper,
 	colorRanges,
@@ -28,8 +24,6 @@ const Heatmap: FC<IHeatmapProps> = ({
 		connectors: { connect },
 	} = useEnhancedNode();
 
-	const showLegend = legendPosition !== 'hidden';
-	const legendPos: 'top' | 'bottom' | 'left' | 'right' = showLegend ? legendPosition! : 'top';
 	let initialColors = ['#008FFB'];
 	const chartColorsArr =
 		chartColors.length > 0
@@ -37,67 +31,11 @@ const Heatmap: FC<IHeatmapProps> = ({
 					color.color.length > 7 ? color.color.substring(0, 7) : color.color,
 				)
 			: initialColors;
-	var yaxis: YAxisAnnotations[] = [];
-	var xaxis: XAxisAnnotations[] = [];
-	var points: PointAnnotations[] = [];
-	// TODO: do we need it ?
-	for (const annotation of annotations || []) {
-		if (annotation.axis === 'y') {
-			yaxis.push({
-				y: applyCoordType(annotation.coordType, annotation.coordFrom),
-				y2: applyCoordType(annotation.coordType, annotation.coordTo),
-				borderColor: annotation.borderColor,
-				fillColor: annotation.backgroundColor,
-				label: {
-					text: annotation.text,
-					style: {
-						color: '#fff',
-						background: annotation.backgroundColor,
-					},
-				},
-			});
-		} else if (annotation.axis === 'x') {
-			xaxis.push({
-				x: applyCoordType(annotation.coordType, annotation.coordFrom),
-				x2: applyCoordType(annotation.coordType, annotation.coordTo),
-				borderColor: annotation.borderColor,
-				fillColor: annotation.backgroundColor,
-				label: {
-					text: annotation.text,
-					style: {
-						color: '#fff',
-						background: annotation.backgroundColor,
-					},
-				},
-			});
-		} else if (annotation.axis === 'point') {
-			points.push({
-				x: applyCoordType(annotation.coordType, annotation.coordFrom),
-				y: parseFloat(annotation.coordTo),
-				marker: {
-					size: 4,
-					fillColor: annotation.backgroundColor,
-					strokeColor: annotation.borderColor,
-				},
-				label: {
-					text: annotation.text,
-					style: {
-						color: '#fff',
-						background: annotation.backgroundColor,
-					},
-				},
-			});
-		}
-	}
-	var annotationsObj = { yaxis: yaxis, xaxis: xaxis, points: points };
 
 	const options: ApexOptions = useMemo(
 		() => ({
 			chart: {
 				type: 'heatmap',
-				zoom: {
-					enabled: zoomable,
-				},
 				toolbar: {
 					tools: {
 						download: exportable,
@@ -121,20 +59,8 @@ const Heatmap: FC<IHeatmapProps> = ({
 				},
 			},
 			colors: chartColorsArr,
-			annotations: {
-				yaxis: annotationsObj.yaxis,
-				xaxis: annotationsObj.xaxis,
-				points: annotationsObj.points,
-			},
 			dataLabels: {
 				enabled: displayLabels,
-			},
-			legend: {
-				show: showLegend,
-				position: legendPos,
-			},
-			stroke: {
-				curve: strokeCurve,
 			},
 			title: {
 				text: name,
@@ -159,15 +85,10 @@ const Heatmap: FC<IHeatmapProps> = ({
 			},
 		}),
 		[
-			legendPos,
 			name,
 			chartColorsArr,
-			showLegend,
 			titlePosition,
-			zoomable,
 			exportable,
-			strokeCurve,
-			annotations,
 			xAxisTitle,
 			yAxisTitle,
 			displayLabels,
@@ -249,17 +170,5 @@ const Heatmap: FC<IHeatmapProps> = ({
 		</div>
 	);
 };
-
-// todo: do we need this
-function applyCoordType(type: IAnnotation['coordType'], value: string): string | number {
-	switch (type) {
-		case 'string':
-			return value;
-		case 'number':
-			return parseFloat(value);
-		case 'datetime':
-			return new Date(value).getTime();
-	}
-}
 
 export default Heatmap;

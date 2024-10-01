@@ -1,13 +1,6 @@
 import { ESetting, TSetting } from '@ws-ui/webform-editor';
 import { BASIC_SETTINGS, DEFAULT_SETTINGS, load } from '@ws-ui/webform-editor';
-import {
-	CgAlignBottom,
-	CgAlignLeft,
-	CgAlignRight,
-	CgAlignTop,
-	CgAlignCenter,
-	CgShortcut,
-} from 'react-icons/cg';
+import { CgAlignLeft, CgAlignRight, CgAlignCenter } from 'react-icons/cg';
 
 const commonSettings: TSetting[] = [
 	{
@@ -25,19 +18,6 @@ const commonSettings: TSetting[] = [
 			{ value: 'left', icon: CgAlignLeft },
 			{ value: 'center', icon: CgAlignCenter },
 			{ value: 'right', icon: CgAlignRight },
-		],
-	},
-	{
-		key: 'legendPosition',
-		label: 'Legend Position',
-		type: ESetting.RADIOGROUP,
-		defaultValue: 'top',
-		options: [
-			{ value: 'top', icon: CgAlignTop },
-			{ value: 'bottom', icon: CgAlignBottom },
-			{ value: 'left', icon: CgAlignLeft },
-			{ value: 'right', icon: CgAlignRight },
-			{ value: 'hidden', icon: CgShortcut },
 		],
 	},
 	{
@@ -97,64 +77,6 @@ const commonSettings: TSetting[] = [
 				key: 'to',
 				label: 'To',
 				type: ESetting.NUMBER_FIELD,
-			},
-		],
-	},
-	{
-		type: ESetting.DATAGRID,
-		key: 'annotations',
-		name: 'text',
-		label: 'Annotations',
-		data: [
-			{
-				key: 'text',
-				label: 'Text',
-				type: ESetting.TEXT_FIELD,
-				defaultValue: 'Annotation',
-			},
-			{
-				key: 'axis',
-				label: 'Axis',
-				type: ESetting.SELECT,
-				defaultValue: 'x',
-				options: [
-					{ value: 'x', label: 'X' },
-					{ value: 'y', label: 'Y' },
-					{ value: 'point', label: 'Point' },
-				],
-			},
-			{
-				key: 'coordType',
-				label: 'Coordinate Type',
-				type: ESetting.SELECT,
-				defaultValue: 'string',
-				options: [
-					{ value: 'string', label: 'String' },
-					{ value: 'number', label: 'Number' },
-					{ value: 'datetime', label: 'Datetime' },
-				],
-			},
-			{
-				key: 'coordFrom',
-				label: 'From (X for point)',
-				placeholder: '2021-01-01',
-				type: ESetting.TEXT_FIELD,
-			},
-			{
-				key: 'coordTo',
-				label: 'To (Y for point)',
-				placeholder: '2021-12-31',
-				type: ESetting.TEXT_FIELD,
-			},
-			{
-				key: 'backgroundColor',
-				label: 'Background Color',
-				type: ESetting.COLOR_PICKER,
-			},
-			{
-				key: 'borderColor',
-				label: 'Border Color',
-				type: ESetting.COLOR_PICKER,
 			},
 		],
 	},

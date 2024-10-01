@@ -76,6 +76,11 @@ const commonSettings: TSetting[] = [
 		type: ESetting.CHECKBOX,
 	},
 	{
+		key: 'zoomable',
+		label: 'Zommable',
+		type: ESetting.CHECKBOX,
+	},
+	{
 		key: 'displayLabels',
 		label: 'Display labels',
 		type: ESetting.CHECKBOX,

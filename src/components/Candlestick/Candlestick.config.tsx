@@ -57,12 +57,10 @@ export default {
 	},
 	defaultProps: {
 		name: 'Qodly Candlestick Chart name',
-		legendPosition: 'top',
 		titlePosition: 'center',
 		exportable: true,
 		zoomable: true,
 		displayLabels: false,
-		strokeCurve: 'straight',
 		xAxisTickAmount: 12,
 		yAxisTickAmount: 8,
 		style: {
@@ -78,8 +76,6 @@ export interface ICandlestickProps extends webforms.ComponentProps {
 	exportable?: boolean;
 	zoomable?: boolean;
 	displayLabels?: boolean;
-	strokeCurve?: 'straight' | 'smooth' | 'monotoneCubic' | 'stepline';
-	legendPosition?: 'top' | 'bottom' | 'left' | 'right' | 'hidden';
 	titlePosition?: 'center' | 'left' | 'right';
 	xAxisTitle?: string;
 	yAxisTitle?: string;

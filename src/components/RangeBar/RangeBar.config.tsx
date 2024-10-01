@@ -63,7 +63,6 @@ export default {
 		exportable: true,
 		zoomable: true,
 		displayLabels: true,
-		strokeCurve: 'straight',
 		xAxisTickAmount: 12,
 		yAxisTickAmount: 8,
 		style: {
@@ -80,7 +79,6 @@ export interface IRangeBarProps extends webforms.ComponentProps {
 	exportable?: boolean;
 	zoomable?: boolean;
 	displayLabels?: boolean;
-	strokeCurve?: 'straight' | 'smooth' | 'monotoneCubic' | 'stepline';
 	legendPosition?: 'top' | 'bottom' | 'left' | 'right' | 'hidden';
 	titlePosition?: 'center' | 'left' | 'right';
 	xAxisTitle?: string;

@@ -59,7 +59,6 @@ export default {
 		name: 'Qodly Pie Chart name',
 		legendPosition: 'top',
 		titlePosition: 'center',
-		chartType: 'pie',
 		gradient: false,
 		displayLabels: true,
 		style: {
@@ -70,7 +69,6 @@ export default {
 
 export interface IPieProps extends webforms.ComponentProps {
 	name?: string;
-	chartType?: 'pie' | 'donut';
 	chartColors?: IColor[];
 	gradient?: boolean;
 	displayLabels?: boolean;

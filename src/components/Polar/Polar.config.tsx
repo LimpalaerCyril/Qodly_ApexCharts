@@ -69,26 +69,14 @@ export default {
 
 export interface IPolarProps extends webforms.ComponentProps {
 	name?: string;
-	annotations?: IAnnotation[];
 	chartColors?: IColor[];
 	displayLabels?: boolean;
 	legendPosition?: 'top' | 'bottom' | 'left' | 'right' | 'hidden';
 	titlePosition?: 'center' | 'left' | 'right';
 	yAxisTickAmount?: number;
-	yAxisMin?: number;
 	yAxisMax?: number;
 }
 
 export interface IColor {
 	color: string;
-}
-
-export interface IAnnotation {
-	text: string;
-	axis: 'x' | 'y' | 'point';
-	coordType: 'string' | 'number' | 'datetime';
-	coordFrom: string;
-	coordTo: string;
-	backgroundColor: string;
-	borderColor: string;
 }
