@@ -1,13 +1,6 @@
 import { ESetting, TSetting } from '@ws-ui/webform-editor';
 import { BASIC_SETTINGS, DEFAULT_SETTINGS, load } from '@ws-ui/webform-editor';
-import {
-	CgAlignBottom,
-	CgAlignLeft,
-	CgAlignRight,
-	CgAlignTop,
-	CgAlignCenter,
-	CgShortcut,
-} from 'react-icons/cg';
+import { CgAlignLeft, CgAlignRight, CgAlignCenter } from 'react-icons/cg';
 
 const commonSettings: TSetting[] = [
 	{
@@ -25,19 +18,6 @@ const commonSettings: TSetting[] = [
 			{ value: 'left', icon: CgAlignLeft },
 			{ value: 'center', icon: CgAlignCenter },
 			{ value: 'right', icon: CgAlignRight },
-		],
-	},
-	{
-		key: 'legendPosition',
-		label: 'Legend Position',
-		type: ESetting.RADIOGROUP,
-		defaultValue: 'top',
-		options: [
-			{ value: 'top', icon: CgAlignTop },
-			{ value: 'bottom', icon: CgAlignBottom },
-			{ value: 'left', icon: CgAlignLeft },
-			{ value: 'right', icon: CgAlignRight },
-			{ value: 'hidden', icon: CgShortcut },
 		],
 	},
 	{
@@ -73,6 +53,11 @@ const commonSettings: TSetting[] = [
 	{
 		key: 'exportable',
 		label: 'Exportable',
+		type: ESetting.CHECKBOX,
+	},
+	{
+		key: 'zoomable',
+		label: 'Zoomable',
 		type: ESetting.CHECKBOX,
 	},
 	{

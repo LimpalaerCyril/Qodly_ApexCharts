@@ -2,7 +2,7 @@ import { useEnhancedNode } from '@ws-ui/webform-editor';
 import cn from 'classnames';
 import { FC, useMemo } from 'react';
 
-import { IAnnotation, ICandlestickProps } from './Candlestick.config';
+import { ICandlestickProps } from './Candlestick.config';
 import ReactApexChart from 'react-apexcharts';
 import { ApexOptions } from 'apexcharts';
 
@@ -16,11 +16,9 @@ const Candlestick: FC<ICandlestickProps> = ({
 	yAxisMax,
 	xAxisTitle,
 	yAxisTitle,
-	strokeCurve,
 	exportable,
 	zoomable,
 	titlePosition,
-	legendPosition,
 	name,
 	style,
 	className,
@@ -29,9 +27,6 @@ const Candlestick: FC<ICandlestickProps> = ({
 	const {
 		connectors: { connect },
 	} = useEnhancedNode();
-
-	const showLegend = legendPosition !== 'hidden';
-	const legendPos: 'top' | 'bottom' | 'left' | 'right' = showLegend ? legendPosition! : 'top';
 	let initialColors = [
 		'#FF4560',
 		'#008FFB',
@@ -63,55 +58,17 @@ const Candlestick: FC<ICandlestickProps> = ({
 	var yaxis: YAxisAnnotations[] = [];
 	var xaxis: XAxisAnnotations[] = [];
 	var points: PointAnnotations[] = [];
-	// TODO: do we need it ?
-	for (const annotation of annotations || []) {
-		if (annotation.axis === 'y') {
-			yaxis.push({
-				y: applyCoordType(annotation.coordType, annotation.coordFrom),
-				y2: applyCoordType(annotation.coordType, annotation.coordTo),
-				borderColor: annotation.borderColor,
-				fillColor: annotation.backgroundColor,
-				label: {
-					text: annotation.text,
-					style: {
-						color: '#fff',
-						background: annotation.backgroundColor,
-					},
-				},
-			});
-		} else if (annotation.axis === 'x') {
-			xaxis.push({
-				x: applyCoordType(annotation.coordType, annotation.coordFrom),
-				x2: applyCoordType(annotation.coordType, annotation.coordTo),
-				borderColor: annotation.borderColor,
-				fillColor: annotation.backgroundColor,
-				label: {
-					text: annotation.text,
-					style: {
-						color: '#fff',
-						background: annotation.backgroundColor,
-					},
-				},
-			});
-		} else if (annotation.axis === 'point') {
-			points.push({
-				x: applyCoordType(annotation.coordType, annotation.coordFrom),
-				y: parseFloat(annotation.coordTo),
-				marker: {
-					size: 4,
-					fillColor: annotation.backgroundColor,
-					strokeColor: annotation.borderColor,
-				},
-				label: {
-					text: annotation.text,
-					style: {
-						color: '#fff',
-						background: annotation.backgroundColor,
-					},
-				},
-			});
-		}
+	//since in the build data is fixed
+	if (annotations && annotations.length > 0) {
+		yaxis.push({
+			y: 6585,
+			y2: 6605,
+			label: {
+				text: 'Annotation',
+			},
+		});
 	}
+
 	var annotationsObj = { yaxis: yaxis, xaxis: xaxis, points: points };
 
 	const options: ApexOptions = useMemo(
@@ -127,7 +84,15 @@ const Candlestick: FC<ICandlestickProps> = ({
 					},
 				},
 			},
-			colors: chartColorsArr,
+			// colors: chartColorsArr, //NOT WORKING
+			plotOptions: {
+				candlestick: {
+					colors: {
+						upward: chartColorsArr[0],
+						downward: chartColorsArr[1],
+					},
+				},
+			},
 			annotations: {
 				yaxis: annotationsObj.yaxis,
 				xaxis: annotationsObj.xaxis,
@@ -135,13 +100,6 @@ const Candlestick: FC<ICandlestickProps> = ({
 			},
 			dataLabels: {
 				enabled: displayLabels,
-			},
-			legend: {
-				show: showLegend,
-				position: legendPos,
-			},
-			stroke: {
-				curve: strokeCurve,
 			},
 			title: {
 				text: name,
@@ -170,13 +128,10 @@ const Candlestick: FC<ICandlestickProps> = ({
 			},
 		}),
 		[
-			legendPos,
 			name,
-			showLegend,
 			titlePosition,
 			zoomable,
 			exportable,
-			strokeCurve,
 			annotations,
 			xAxisTitle,
 			yAxisTitle,
@@ -185,6 +140,7 @@ const Candlestick: FC<ICandlestickProps> = ({
 			yAxisMax,
 			xAxisTickAmount,
 			yAxisTickAmount,
+			chartColorsArr,
 		],
 	);
 
@@ -274,17 +230,5 @@ const Candlestick: FC<ICandlestickProps> = ({
 		</div>
 	);
 };
-
-// todo: do we need this
-function applyCoordType(type: IAnnotation['coordType'], value: string): string | number {
-	switch (type) {
-		case 'string':
-			return value;
-		case 'number':
-			return parseFloat(value);
-		case 'datetime':
-			return new Date(value).getTime();
-	}
-}
 
 export default Candlestick;

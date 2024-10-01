@@ -16,7 +16,6 @@ const Bar: FC<IRangeBarProps> = ({
 	yAxisMax,
 	xAxisTitle,
 	yAxisTitle,
-	strokeCurve,
 	exportable,
 	zoomable,
 	titlePosition,
@@ -157,9 +156,6 @@ const Bar: FC<IRangeBarProps> = ({
 					show: datas.options.legend?.show ?? showLegend,
 					position: datas.options.legend?.position ?? legendPos,
 				},
-				stroke: {
-					curve: datas.options.stroke?.curve ?? strokeCurve,
-				},
 				title: {
 					text: datas.options.title?.text ?? name,
 					align: datas.options.title?.align ?? titlePosition,
@@ -171,7 +167,6 @@ const Bar: FC<IRangeBarProps> = ({
 					},
 				},
 				xaxis: {
-					categories: datas.options.xaxis?.categories,
 					title: {
 						text: datas.options.xaxis?.title?.text ?? xAxisTitle,
 					},
@@ -187,7 +182,6 @@ const Bar: FC<IRangeBarProps> = ({
 				},
 			};
 			var series: any[] = datas.series;
-
 			var chart = {
 				options: options,
 				series: series,

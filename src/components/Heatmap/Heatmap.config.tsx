@@ -72,13 +72,9 @@ export default {
 
 export interface IHeatmapProps extends webforms.ComponentProps {
 	name?: string;
-	annotations?: IAnnotation[];
 	chartColors: IColor[];
 	exportable?: boolean;
-	zoomable?: boolean;
 	displayLabels?: boolean;
-	strokeCurve?: 'straight' | 'smooth' | 'monotoneCubic' | 'stepline';
-	legendPosition?: 'top' | 'bottom' | 'left' | 'right' | 'hidden';
 	titlePosition?: 'center' | 'left' | 'right';
 	xAxisTitle?: string;
 	yAxisTitle?: string;

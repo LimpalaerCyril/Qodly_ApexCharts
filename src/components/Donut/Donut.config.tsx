@@ -59,7 +59,6 @@ export default {
 		name: 'Qodly Donut Chart name',
 		legendPosition: 'top',
 		titlePosition: 'center',
-		chartType: 'donut',
 		gradient: false,
 		displayLabels: true,
 		style: {
@@ -70,7 +69,6 @@ export default {
 
 export interface IDonutProps extends webforms.ComponentProps {
 	name?: string;
-	chartType?: 'donut' | 'pie';
 	chartColors?: IColor[];
 	gradient?: boolean;
 	displayLabels?: boolean;

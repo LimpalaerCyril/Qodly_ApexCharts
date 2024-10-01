@@ -10,7 +10,6 @@ const Polar: FC<IPolarProps> = ({
 	displayLabels,
 	chartColors,
 	yAxisTickAmount,
-	yAxisMin,
 	yAxisMax,
 	titlePosition,
 	legendPosition,
@@ -95,7 +94,6 @@ const Polar: FC<IPolarProps> = ({
 				},
 				yaxis: {
 					tickAmount: datas.options.yaxis?.tickAmount ?? yAxisTickAmount,
-					min: datas.options.yaxis?.min ?? yAxisMin,
 					max: datas.options.yaxis?.max ?? yAxisMax,
 				},
 				responsive: datas.options.responsive ?? [],

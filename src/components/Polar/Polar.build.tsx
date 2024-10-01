@@ -10,7 +10,6 @@ const Polar: FC<IPolarProps> = ({
 	displayLabels,
 	yAxisTickAmount,
 	chartColors,
-	yAxisMin,
 	yAxisMax,
 	titlePosition,
 	legendPosition,
@@ -82,7 +81,6 @@ const Polar: FC<IPolarProps> = ({
 			},
 			yaxis: {
 				tickAmount: yAxisTickAmount,
-				min: yAxisMin,
 				max: yAxisMax,
 			},
 		}),
@@ -92,9 +90,9 @@ const Polar: FC<IPolarProps> = ({
 			showLegend,
 			titlePosition,
 			displayLabels,
-			yAxisMin,
 			yAxisMax,
 			yAxisTickAmount,
+			chartColorsArr,
 		],
 	);
 

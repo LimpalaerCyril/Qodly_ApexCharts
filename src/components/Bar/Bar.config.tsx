@@ -60,12 +60,9 @@ export default {
 		orientation: 'vertical',
 		legendPosition: 'top',
 		titlePosition: 'center',
-		chartType: 'bar',
 		stacked: false,
 		exportable: true,
-		zoomable: true,
 		displayLabels: true,
-		strokeCurve: 'straight',
 		xAxisTickAmount: 12,
 		yAxisTickAmount: 8,
 		style: {
@@ -78,13 +75,10 @@ export interface IBarProps extends webforms.ComponentProps {
 	name?: string;
 	stacked?: boolean;
 	orientation?: 'vertical' | 'horizontal';
-	chartType?: 'bar' | 'line' | 'area';
 	annotations?: IAnnotation[];
 	chartColors?: IColor[];
 	exportable?: boolean;
-	zoomable?: boolean;
 	displayLabels?: boolean;
-	strokeCurve?: 'straight' | 'smooth' | 'monotoneCubic' | 'stepline';
 	legendPosition?: 'top' | 'bottom' | 'left' | 'right' | 'hidden';
 	titlePosition?: 'center' | 'left' | 'right';
 	xAxisTitle?: string;
