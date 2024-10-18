@@ -25,7 +25,7 @@
   },
   "dependencies": {
     "@ws-ui/webform-editor": "0.3.20",
-    "apexcharts": "^3.49.1",
+    "apexcharts": "^3.54.1",
     "react": "^17.0.2",
     "react-apexcharts": "^1.4.1",
     "react-dom": "^17.0.2"
