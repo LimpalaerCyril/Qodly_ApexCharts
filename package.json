@@ -2,7 +2,7 @@
   "app_id": "qodly_19d46f3361fe2825fb10",
   "name": "qodly_apexcharts",
   "private": true,
-  "version": "1.1.0",
+  "version": "1.2.0",
   "type": "module",
   "author": {
     "name": "Cyril Limpalaer",
@@ -31,7 +31,7 @@
     "react-dom": "^17.0.2"
   },
   "devDependencies": {
-    "@qodly/cli": "^0.2.14",
+    "@qodly/cli": "^0.2.20",
     "@types/react": "^18.2.48",
     "@types/react-dom": "^18.2.18",
     "@typescript-eslint/eslint-plugin": "^6.20.0",
