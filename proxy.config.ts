@@ -2,7 +2,7 @@
 import { ProxyOptions } from 'vite';
 
 export function initProxy(env: Record<string, string>): Record<string, string | ProxyOptions> {
-  const TARGET = env.PROXY_SERVER || 'http://127.0.0.1:7080';
+  const TARGET = env.PROXY_SERVER || 'https://127.0.0.1:7443';
   const IS_API_SECURE = env.API_SECURE === 'true';
   const API_KEY = env.API_KEY || '';
 
@@ -20,11 +20,11 @@ export function initProxy(env: Record<string, string>): Record<string, string | 
     changeOrigin: true,
     configure(proxy) {
       proxy.on('proxyRes', (proxyRes) => {
-        if (proxyRes.headers['Set-Cookie']) {
-          if (Array.isArray(proxyRes.headers['Set-Cookie'])) {
-            proxyRes.headers['Set-Cookie'] = proxyRes.headers['Set-Cookie'].map(sanitizeSetCookie);
+        if (proxyRes.headers['set-cookie']) {
+          if (Array.isArray(proxyRes.headers['set-cookie'])) {
+            proxyRes.headers['set-cookie'] = proxyRes.headers['set-cookie'].map(sanitizeSetCookie);
           } else {
-            proxyRes.headers['Set-Cookie'] = sanitizeSetCookie(proxyRes.headers['Set-Cookie']);
+            proxyRes.headers['set-cookie'] = [sanitizeSetCookie(proxyRes.headers['set-cookie'])];
           }
         }
       });
